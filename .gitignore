@@ -31,10 +31,3 @@ build/
 .vscode/
 
 
-### MyBatis ###
-*.yml
-*.properties
-generatorConfig.xml
-pom.xml
-MyjdApplication.java
-
