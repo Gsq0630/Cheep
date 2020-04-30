@@ -1,0 +1,132 @@
+/*头部*/
+#header {
+    font-size: 14px;
+    color: #666666;
+    width: 100%;
+    height: 110px;
+    background: url("../images/register/headbg.jpg") repeat-x left bottom;
+}
+
+/*内嵌div*/
+#header_inner {
+    width: 1200px;
+    height: 76px;
+    margin: 0 155px;
+    font-size: 14px;
+}
+
+#reg_logo {
+    width: 160px;
+    height: 50px;
+    float: left;
+    margin-top: 24px;
+    background-image: url("../images/register/icon.png");
+}
+
+.reg_title {
+    float: left;
+    width: 96px;
+    height: 34px;
+    color: #333333;
+    font-size: 24px;
+    margin: 34px 0 0;
+}
+
+.havecount {
+    float: right;
+    width: 145px;
+    height: 21px;
+    color: #999999;
+    font-size: 16px;
+    margin-top: 55px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.tologin {
+    width: 60px;
+    height: 19px;
+    color: #EE2222;
+    text-decoration: none;
+}
+
+#reg_over{
+    width: 810px;
+    height: 220px;
+    margin: 50px 350px 0 ;
+}
+
+#success_msg{
+    height: 205px;
+    margin: 0 0 30px;
+}
+#success_msg .success_tag{
+    margin: 60px auto 10px;
+    display: block;
+    height: 56px;
+    width: 56px;
+    background: url("../images/register/icon-complete.png") no-repeat;
+}
+#success_msg .mt{
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    line-height: 40px;
+}
+#success_msg .mm{
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+    line-height: 26px;
+}
+#success_msg .mm_tip{
+    font-size: 12px;
+}
+#go_continue{
+    height: 54px;
+    margin: 20px 0 20px;
+    text-align: center;
+}
+#btn{
+    width: 160px;
+    height: 52px;
+    outline: 0;
+    border: 1px solid #ee2223;
+    background: #ee2223;
+    font-size: 19px;
+    color: #fefefe;
+}
+#abtn{
+    display: inline;
+    line-height: 52px;
+    width: 160px;
+    height: 54px;
+    color: #fefefe;
+}
+
+/*底部*/
+#reg_foot{
+    font-size: 12px;
+    text-align: center;
+    border-top: solid 1px #e6e6e6;
+    color: #999;
+    padding-bottom: 30px;
+    width: 1210px;
+    margin: 170px 155px 0 155px;
+}
+#links{
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+#links a{
+    font-size: 12px;
+    text-align: center;
+    color: #999;
+    margin: 0 10px;
+}

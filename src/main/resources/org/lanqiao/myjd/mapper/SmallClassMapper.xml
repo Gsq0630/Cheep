@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.myjd.mapper.SmallClassMapper" >
+  <resultMap id="SmallClassResultMap" type="org.lanqiao.myjd.entity.SmallClass" >
+    <id column="Sclass_id" property="sclassId" jdbcType="INTEGER" />
+    <result column="Sclass_name" property="sclassName" jdbcType="VARCHAR" />
+    <result column="Bclass_id" property="bclassId" jdbcType="INTEGER" />
+    <result column="Bclass_name" property="bclassName" jdbcType="VARCHAR" />
+    <result column="pageCount" property="pageCount" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    Sclass_id, Sclass_name, Bclass_id
+  </sql>
+
+  <select id="getSmallClassCount" resultMap="SmallClassResultMap">
+    select count(Sclass_id) as pageCount from smallclass
+  </select>
+
+  <select id="getAllSmallClass" resultMap="SmallClassResultMap" parameterType="Key">
+    select s.*, Bclass_name from smallclass s, bigclass b
+    <where>
+    s.Bclass_id = b.Bclass_id
+    <if test="keyWord != null and keyWord != ''">
+    and(
+      s.Bclass_id = (select Bclass_id from bigclass where Bclass_name like '%${keyWord}%')
+      or s.Sclass_name like '%${keyWord}%' or s.Sclass_id = cast(#{keyWord} as unsigned int)
+      )
+    </if>
+    </where>
+    <if test="smallPageSize > 0 and smallPageNum >= 0">
+    limit #{smallPageNum} , #{smallPageSize}
+    </if>
+
+
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="SmallClassResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from smallclass
+    where Sclass_id = #{sclassId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from smallclass
+    where Sclass_id = #{sclassId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.myjd.entity.SmallClass" >
+    insert into smallclass (Sclass_id, Sclass_name, Bclass_id
+      )
+    values (#{sclassId,jdbcType=INTEGER}, #{sclassName,jdbcType=VARCHAR}, #{bclassId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.myjd.entity.SmallClass" >
+    insert into smallclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sclassId != null" >
+        Sclass_id,
+      </if>
+      <if test="sclassName != null" >
+        Sclass_name,
+      </if>
+      <if test="bclassId != null" >
+        Bclass_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sclassId != null" >
+        #{sclassId,jdbcType=INTEGER},
+      </if>
+      <if test="sclassName != null" >
+        #{sclassName,jdbcType=VARCHAR},
+      </if>
+      <if test="bclassId != null" >
+        #{bclassId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.myjd.entity.SmallClass" >
+    update smallclass
+    <set >
+      <if test="sclassName != null" >
+        Sclass_name = #{sclassName,jdbcType=VARCHAR},
+      </if>
+      <if test="bclassId != null" >
+        Bclass_id = #{bclassId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Sclass_id = #{sclassId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.myjd.entity.SmallClass" >
+    update smallclass
+    set Sclass_name = #{sclassName,jdbcType=VARCHAR},
+      Bclass_id = #{bclassId,jdbcType=INTEGER}
+    where Sclass_id = #{sclassId,jdbcType=INTEGER}
+  </update>
+</mapper>

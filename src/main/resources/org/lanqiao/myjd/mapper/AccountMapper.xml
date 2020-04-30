@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.myjd.mapper.AccountMapper" >
+  <resultMap id="AccountResultMap" type="org.lanqiao.myjd.entity.Account" >
+    <id column="acc_id" property="accId" jdbcType="INTEGER" />
+    <result column="acc_name" property="accName" jdbcType="VARCHAR" />
+    <result column="acc_password" property="accPassword" jdbcType="VARCHAR" />
+    <result column="acc_createdate" property="accCreatedate" jdbcType="TIMESTAMP" />
+
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="acc_email" property="accEmail" jdbcType="VARCHAR" />
+    <result column="acc_phone" property="accPhone" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="selectAccByPhone" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(*) from account where acc_phone = #{accPhone}
+  </select>
+
+  <select id="selectAccByName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from account where acc_name = #{accName}
+  </select>
+  <select id="selectAccByEmail" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from account where acc_email = #{accEmail}
+  </select>
+  <insert id="insertAcc" parameterType="org.lanqiao.myjd.entity.Account" useGeneratedKeys="true" keyProperty="accId">
+    insert into account(acc_name,acc_password,acc_email,acc_phone) values (#{accName},#{accPassword},#{accEmail},#{accPhone})
+  </insert>
+  <update id="updateAccUsersid" parameterType="org.lanqiao.myjd.entity.UsersVo">
+    update account set users_id=#{users.usersId} where acc_id = #{accId}
+  </update>
+  <select id="selectAccIdByName" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select acc_id from account where acc_name = #{accName}
+  </select>
+
+
+
+  <sql id="Account_Column_List" >
+    acc_id, acc_name, acc_password, acc_createdate, acc_email, acc_phone, users_id
+  </sql>
+  <select id="selectByLogin" resultMap="AccountResultMap" parameterType="java.lang.String">
+    select * from account where (acc_name = #{str} or acc_email = #{str} or acc_phone = #{str}) and acc_password = #{password}
+  </select>
+  <select id="getAccName" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select acc_name from account where acc_id = #{accId}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="AccountResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Account_Column_List" />
+
+    from account
+    where acc_id = #{accId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account
+    where acc_id = #{accId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.myjd.entity.Account" >
+    insert into account (acc_id, acc_name, acc_password, 
+      acc_createdate, users_id, acc_email,
+      acc_phone)
+    values (#{accId,jdbcType=INTEGER}, #{accName,jdbcType=VARCHAR}, #{accPassword,jdbcType=VARCHAR}, 
+      #{accCreatedate,jdbcType=TIMESTAMP}, #{usersId,jdbcType=INTEGER}, #{accEmail,jdbcType=VARCHAR}, 
+      #{accPhone,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.myjd.entity.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accId != null" >
+        acc_id,
+      </if>
+      <if test="accName != null" >
+        acc_name,
+      </if>
+      <if test="accPassword != null" >
+        acc_password,
+      </if>
+      <if test="accCreatedate != null" >
+        acc_createdate,
+      </if>
+
+      <if test="usersId != null" >
+        users_id,
+      </if>
+
+      <if test="accEmail != null" >
+        acc_email,
+      </if>
+      <if test="accPhone != null" >
+        acc_phone,
+      </if>
+
+      <if test="usersId != null" >
+        users_id,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accId != null" >
+        #{accId,jdbcType=INTEGER},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPassword != null" >
+        #{accPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="accCreatedate != null" >
+        #{accCreatedate,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+
+      <if test="accEmail != null" >
+        #{accEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="accPhone != null" >
+        #{accPhone,jdbcType=DECIMAL},
+      </if>
+
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.myjd.entity.Account" >
+    update account
+    <set >
+      <if test="accName != null" >
+        acc_name = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPassword != null" >
+        acc_password = #{accPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="accCreatedate != null" >
+        acc_createdate = #{accCreatedate,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+
+      <if test="accEmail != null" >
+        acc_email = #{accEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="accPhone != null" >
+        acc_phone = #{accPhone,jdbcType=DECIMAL},
+      </if>
+
+      <if test="usersId != null" >
+        users_id = #{usersId,jdbcType=INTEGER},
+      </if>
+
+    </set>
+    where acc_id = #{accId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.myjd.entity.Account" >
+    update account
+    set acc_name = #{accName,jdbcType=VARCHAR},
+      acc_password = #{accPassword,jdbcType=VARCHAR},
+      acc_createdate = #{accCreatedate,jdbcType=TIMESTAMP},
+
+      users_id = #{usersId,jdbcType=INTEGER},
+      acc_email = #{accEmail,jdbcType=VARCHAR},
+      acc_phone = #{accPhone,jdbcType=DECIMAL}
+
+    where acc_id = #{accId,jdbcType=INTEGER}
+  </update>
+</mapper>

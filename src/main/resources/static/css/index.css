@@ -1,0 +1,603 @@
+#shortcut{
+    width: 100%;
+    height: 31px;
+    background-color: #E3E4E5;
+}
+#shortcut li{
+    float: left;
+    list-style: none;
+}
+#shortcut li.spacer {
+    overflow: hidden;
+    margin: 11px 5px 0;
+    width: 1px;
+    height: 10px;
+    background-color: #ccc;
+}
+.w{
+    margin: auto;
+    width: 1190px;
+}
+#shortcut.w{
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+}
+.iconfont {
+    font-size: 14px;
+    color: #f10215;
+    margin-right: 4px;
+}
+#register{
+    color: #ff4038;
+}
+#eb{
+    color: #ff4038;
+}
+#nav1{
+    float: left;
+    padding: 5px 10px 0 7px;
+}
+#nav2{
+    float: right;
+}
+.box{
+    padding: 5px 10px 0 7px;
+}
+#header{
+     width: 100%;
+     height: 141px;
+     background-color: white;
+}
+#logo{
+    width: 190px;
+    height: 120px;
+    float: left;
+    background-image: url("../images/logo.png");
+}
+#search{
+    width: 805px;
+    height: 60px;
+    margin-top: 24px;
+    float: left;
+}
+#navItems{
+    width: 760px;
+    height: 30px;
+    float: left;
+    padding: 20px 0 0 45px;
+}
+#navItems a{
+    position: relative;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    margin: 0 11px;
+    float: left;
+}
+#searchForm{
+    margin-top: 10px;
+    margin-left: 60px;
+    width: 546px;
+    height: 32px;
+    float: left;
+    border: 2px solid #e2231a;
+}
+#content{
+    left: 0;
+    padding: 2px 44px 2px 17px;
+    width: 425px;
+    height: 26px;
+    border: 1px solid transparent;
+    line-height: 26px;
+    font-size: 12px;
+    float: left;
+}
+#searchBtn{
+    right: 0;
+    width: 58px;
+    height: 32px;
+    line-height: 32px;
+    border: none;
+    background-color: #e2231a;
+    float: left;
+}
+#sBox{
+    float: left;
+}
+#cart{
+    margin: 10px 0 0 15px;
+    text-align: center;
+    border: 1px solid darkgrey;
+    width: 132px;
+    height: 34px;
+    line-height: 34px;
+    float: left;
+}
+#appCodeBox{
+    width: 76px;
+    height: 76px;
+    float: left;
+    margin: 0 0 0 119px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+#appCode{
+    width: 65px;
+    height: 65px;
+    margin: 5px;
+    background: #f6f6f6 url("../images/appCode.png");
+}
+#hotWords{
+    overflow: hidden;
+    position: relative;
+    left: 60px;
+    width: 550px;
+    line-height: 20px;
+}
+#hotWords a{
+    margin-right: 5px;
+}
+#hw1,#ni1,#ni2{
+    color: #e2231a;
+}
+#shopping-amount{
+    position: relative;
+    top: -5px;
+    left: -5px;
+    right: auto;
+    display: inline-block;
+    padding: 1px 3px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #fff;
+    background-color: #e1251b;
+    border-radius: 7px;
+    min-width: 12px;
+    text-align: center;
+}
+#classNav{
+    width: 100%;
+    height: 480px;
+    background-color: #E3E4E5;
+}
+#classNav_c1{
+    width: 190px;
+    height: 480px;
+    padding: 0 10px 0 0;
+    float: left;
+}
+#classNav_c2{
+    width: 790px;
+    height: 480px;
+    padding: 0 10px 0 0;
+    float: left;
+}
+#classNav_c3{
+    width: 190px;
+    height: 480px;
+    float: left;
+}
+#classList{
+    margin-top: 10px;
+    padding: 5px 0 5px 0;
+    float: left;
+    overflow: hidden;
+    height: 460px;
+    background-color: #fefefe;
+    color: #636363;
+}
+.ci{
+    overflow: hidden;
+    padding-left: 18px;
+    height: 25px;
+    font-size: 14px;
+    line-height: 25px;
+}
+.ci a, .uia{
+    color: #333;
+}
+.ci a:hover, .uia a:hover{
+    color: #c81623;
+}
+#picBox1{
+    float: left;
+    margin: 10px 0 10px 0;
+}
+#picBox2{
+    width: 190px;
+    float: left;
+    margin: 5px 0 10px 0;
+    padding-left: 5px;
+}
+.pb_item{
+    width: 190px;
+    height: 150px;
+    margin: 5px 0 5px 0;
+}
+#c3_row1{
+    width: 190px;
+    height: 102px;
+    margin-top: 10px;
+    background-color: white;
+}
+#c3_row2{
+    width: 190px;
+    height: 130px;
+    background-color: white;
+}
+#c3_row3{
+    width: 190px;
+    height: 228px;
+    background-color: white;
+    overflow: hidden;
+}
+#userItem{
+    width: 190px;
+    height: 67px;
+}
+#userSelect{
+    width: 190px;
+    height: 35px;
+    text-align: center;
+}
+#headPicBox{
+    width: 44px;
+    height: 44px;
+    margin: 13px 0 0 20px;
+    float: left;
+}
+#hpLink{
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: solid 2px #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+#hp{
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+#uiBox{
+    width: 106px;
+    height: 38px;
+    padding: 16px 0 0 10px;
+    float: left;
+}
+.us{
+     margin: 0 5px;
+     width: 70px;
+     height: 25px;
+     line-height: 25px;
+     font-size: 12px;
+     text-align: center;
+     color: #fff;
+     border-radius: 15px;
+     background: #e1251b;
+     display: inline-block;
+}
+#s2{
+    background: #363634;
+    color: #e5d790;
+}
+.divLine{
+    height: 1px;
+    width: 160px;
+    background: linear-gradient(270deg, white, gray, gray, white);
+    content: '';
+    margin: auto;
+}
+.news_hd{
+    height: 20px;
+    padding: 10px 0 0;
+    position: relative;
+    line-height: 20px;
+    font-size: 0;
+    margin-bottom: 8px;
+}
+.news_tit{
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 15px;
+    color: #333;
+}
+.news_more{
+    position: relative;
+    left: 70px;
+    font-size: 12px;
+    color: #999;
+}
+.news_list{
+    position: relative;
+    margin: 0 15px;
+    height: 88px;
+}
+.news_item{
+    _width: 160px;
+    height: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    color: #999;
+    margin-bottom: 6px;
+}
+.news_tag {
+    display: inline-block;
+    position: relative;
+    font-size: 12px;
+    height: 16px;
+    width: 35px;
+    line-height: 16px;
+    text-align: center;
+    color: #e1251b;
+    background-color: rgba(225, 37, 27, 0.08);
+    margin-right: 6px;
+}
+#service_list{
+    padding-top: 5px;
+    height: 225px;
+}
+.service_item{
+    float: left;
+    width: 63px;
+    height: 55px;
+    background: #fff;
+    text-align: center;
+}
+.service_icon{
+    width: 28px;
+    height: 28px;
+}
+.service_ico_img{
+    width: 28px;
+    height: 28px;
+    display: block;
+    margin: auto;
+}
+#secKill{
+    margin-top: 30px;
+}
+#secKillLink{
+    color: white;
+}
+#countdown_box{
+    width: 190px;
+    height: 260px;
+    float: left;
+    background-image: url("../images/countdown.png");
+}
+#countdown_title {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+#countdown_desc{
+    margin-top: 90px;
+    font-size: 15px;
+    text-align: center;
+}
+#cdTimer{
+    width: 130px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    display: block;
+    color: white;
+}
+.timer_unit {
+    position: relative;
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #2f3430;
+    margin-right: 20px;
+    color: white;
+    font-size: 20px;
+}
+.timer_unit:after {
+    content: ':';
+    display: block;
+    position: absolute;
+    right: -20px;
+    font-weight: bolder;
+    font-size: 18px;
+    width: 20px;
+    height: 100%;
+    top: 0;
+}
+.timer_unit_second{
+    margin-right: 0;
+}
+.timer_unit:last-child:after {
+    content: '';
+}
+#secKillList{
+    width: 800px;
+    height: 260px;
+    float: left;
+}
+#secKillBrand{
+    width: 200px;
+    height: 260px;
+    float: left;
+}
+.slider_item{
+    width: 200px;
+    height: 260px;
+    display: block;
+    float: left;
+    text-align: center;
+    background-color: white;
+}
+.slider_item_image .skimg{
+    width: 140px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    overflow: hidden;
+}
+.seckill_item_name{
+    font-size: 12px;
+    font-weight: 400;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+    height: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 13px;
+}
+.seckill_price {
+    border: 1px solid #e1251b;
+    position: relative;
+    box-sizing: border-box;
+    line-height: 24px;
+    overflow: hidden;
+    background-color: #e1251b;
+    width: 160px;
+    height: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7px;
+}
+.seckill_price_now {
+    width: 92px;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    float: left;
+}
+.seckill_price_origin {
+    height: 100%;
+    width: 66px;
+    float: right;
+    background: #fff;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    line-height: 22px;
+    box-sizing: border-box;
+    text-decoration: line-through;
+    vertical-align: top;
+}
+.seckill_price_now:before {
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-width: 22px 8px 0 0;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
+    position: absolute;
+    top: 0;
+    left: 84px;
+}
+#skb{
+    width: 200px;
+    height: 260px;
+    float: left;
+}
+/****************右侧浮动*****************/
+#float_right {
+    position: fixed;
+    z-index: 1;
+    right: 260px;
+    top: 650px;
+}
+#float_right li {
+    float: none;
+}
+.elevator_lk {
+    position: relative;
+    display: block;
+    width: 28px;
+    height: 38px;
+    line-height: 19px;
+    font-size: 14px;
+    color: #333;
+    padding: 10px 16px;
+    transition: color ease 0.2s;
+    background: #fff;
+    z-index: 1;
+}
+.elevator_lk:hover {
+    color: #ffffff;
+    background-color: #c81623;
+}
+.float_right_line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(270deg, white, #eeeeee, #eeeeee, white);
+}
+.elevator_totop_icon {
+    display: block;
+    height: 22px;
+    line-height: 22px;
+    font-family: 'iconfont', sans-serif;
+    font-size: 20px;
+}
+
+/*footer*/
+#footer{
+    height: 568px;
+    width: 100%;
+    text-align: center;
+}
+/*************顶部浮动**************/
+/*logo*/
+#float_top_logo{
+    width: 125px;
+    height: 40px;
+    background-image: url("../images/logo.png");
+    background-position: 0 -120px;
+    float: left;
+    margin-left: 150px;
+}
+/*搜索栏*/
+#float_top{
+    top: 0;
+    height: 52px;
+    width: 100%;
+    position: fixed;
+    border-bottom: 2px solid #c81623;
+    background-color: #ffffff;
+    z-index: 3;
+    display: none;
+    text-align: center;
+}
+
+#search_top_left_float {
+    width: 530px;
+    height: 35px;
+    float: left;
+    margin: 10px 10px 0 100px;
+}
+
+#keyword_float {
+    padding: 2px 44px 2px 17px;
+    width: 400px;
+    height: 25px;
+    border: 2px solid #e1251b;
+    line-height: 25px;
+    font-size: 14px;
+    float: left;
+}
+
+#search_top_left_float img {
+    float: left;
+}
+
+#search_top_center_float{
+    float: left;
+    margin-top: 15px;
+}

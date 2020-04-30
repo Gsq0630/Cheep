@@ -1,0 +1,44 @@
+#bigBox {
+    width: 80%;
+    height: 100%;
+    margin-top: 20px;
+}
+
+#tile {
+    width: 50%;
+    text-align: center;
+    font-size: 36px;
+    color: #337ab7;
+}
+
+#lieBiao {
+    width: 200px;
+    text-align: center;
+    margin-top: 10px;
+    background-color: white
+}
+
+.iframe {
+    width: 1000px;
+    height: 750px;
+    border: 0;
+    background-color: rgba(244, 244, 244, 0.81)
+}
+
+.biao {
+    width: 80%;
+    margin: 10px auto;
+}
+
+.tableHead {
+    background-color: #337ab7;
+    color: white;
+}
+
+.tableHead th {
+    text-align: center;
+}
+
+.yeMa_size {
+    width: 34px
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/backstage.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery.validate.js" type="application/javascript"></script>
+    <script src="js/jquery.validate.regex.js" type="application/javascript"></script>
+    <script src="js/layer.js" type="application/javascript"></script>
+    <script>
+        $(function () {
+            var insertClass = new Vue({
+                el:"#insertClass",
+                data:{
+                    className:'',
+                    classBelong:'',
+                    keyWord:'',
+                    allBigClass:[]
+                },
+                methods:{
+                    toChangeBelong:function (index) {
+                        this.classBelong = insertClass.allBigClass[index].bclassName;
+                    },
+                    insertBigClass:function () {
+                        this.className='';
+                        this.keyWord = '大类';
+                    },
+                    insertSmallClass:function () {
+                        this.className='';
+                        this.keyWord = '小类';
+                        this.classBelong = '';
+                        insertClass.allBigClass = [];
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/search/bigclass" ,
+                            type:"post",
+                            datatype:"json",
+                            success:function (data) {
+                                for (var i = 0; i < data.length; i++){
+                                    insertClass.allBigClass.push({
+                                        bclassName : data[i].bclassName
+                                    })
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $(".form_changeClass").validate({
+                rules: {
+                    newBigClassName: {
+                        required: true,
+                        regex: /^\w{2,20}|[\u4e00-\u9fa5]{2,20}$/
+                    },
+                    newSmallClassName:{
+                        required: true,
+                        regex: /^\w{2,20}|[\u4e00-\u9fa5]{2,20}$/
+                    }
+                },
+                messages:{
+                    newBigClassName:{
+                        required: "错误",
+                        regex: "错误"
+                    },
+                    newSmallClassName:{
+                        required: "错误",
+                        regex: "错误"
+                    }
+                },
+                submitHandler:function () {
+                    $.ajax({
+                        url:insertClass.keyWord=='小类' ? "http://localhost:8080/backstage/insert/smallclass" : "http://localhost:8080/backstage/insert/bigclass",
+                        datatype:"json",
+                        type:"post",
+                        data:{
+                            className:insertClass.className,
+                            classBelong:insertClass.classBelong
+                        },
+                        success:function () {
+                            alert("添加成功。")
+                        },
+                        error:function () {
+                            alert("添加失败，请确认数据库中是否已经具有该类。")
+                        }
+                    })
+                }
+            });
+            $("#parameter").validate({
+                rules: {
+                    newSmallClassName:{
+                        required: true,
+                        regex: /^\w{2,20}|[\u4e00-\u9fa5]{2,20}$/
+                    }
+                },
+                messages:{
+                    newSmallClassName:{
+                        required: "错误",
+                        regex: "错误"
+                    }
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="iframe" id="insertClass">
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">资料库</a></li>
+        <li><a href="#">数据</a></li>
+    </ul>
+
+    <ul class="nav nav-tabs center-block" id="myTab">
+        <li></li>
+        <li class="active" style="padding-left: 300px"><a href="#intro" data-toggle="tab" @click="insertBigClass">大类</a></li>
+        <li><a href="#parameter" data-toggle="tab" @click="insertSmallClass">小类</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <form class="form_changeClass tab-pane active" id="intro">
+            <div style="padding: 60px 0">
+                <ul>
+                    <li><i>类别名称：</i>
+                        <input type="text" v-model="className" name="newBigClassName" style="width: 100px">
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-primary btn-sm pull-right"
+                                style="margin-top: 20px; margin-right: 40px">提交</button>
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+        <form class="form_changeClass tab-pane" id="parameter">
+            <div style="padding: 60px 0">
+                <ul>
+                    <li><i>类别名称：</i>
+                        <input type="text" v-model="className" name="newSmallClassName" style="width: 100px">
+                    </li>
+                    <li><i>所属大类：</i>
+                        <div class="dropdown classBelong_div">
+                            <button class="btn btn-default dropdown-toggle btn-sm" type="button"  data-toggle="dropdown">
+                                选择
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li v-for="(re,index) in allBigClass"><a href="#" @click="toChangeBelong(index)">{{re.bclassName}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="classBelong_input">
+                            {{classBelong}}
+                        </div>
+
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-primary btn-sm pull-right"
+                                style="margin-top: 20px; margin-right: 40px">提交</button>
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+
+
+
+</div>
+
+
+</body>
+</html>

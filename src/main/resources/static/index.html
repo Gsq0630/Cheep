@@ -1,0 +1,499 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>京东</title>
+    <link href="css/jd.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script>
+        $(function () {
+
+            var loginCookie = $.cookie("accId");
+            if (loginCookie !== undefined) {
+                $.ajax({
+                    url:"/login/getAccName",
+                    type:"post",
+                    dataType:"text",
+                    data:{
+                        accId: loginCookie
+                    },
+                    success : function (accName) {
+                        $("#login").html("您好！"+accName);
+                        $("#hello").html("您好！"+accName);
+                        $("#reg_href").hide();
+                        $("#yincang").hide();
+                        $("#yincang2").hide();
+                    },
+                    error:function (accName) {
+                        alert(accName)
+                    }
+                });
+            }
+
+
+            $("#button").click(function () {
+                sessionStorage.setItem("keyWord",$("#key").val());
+                window.location.href="search.html";
+            });
+
+            $("#s_button").click(function () {
+                sessionStorage.setItem("keyWord",$("#s_key").val());
+                window.location.href="search.html";
+            });
+
+            setTimeout("changImg()", 3000);
+            $(document).scroll(function () {
+                var a = $(this).scrollTop();
+                if (a > 100) {
+                    $("#start").fadeIn(500);
+                } else {
+                    $("#start").fadeOut(500);
+                }
+            });
+        });
+        var i = -1;
+        var imgs = new Array("lb1.jpg.webp", "lb2.webp", "lb3.webp", "lb4.jpg", "lb5.webp", "lb6.jpg");
+
+        function changImg() {
+            i++;
+            if (i == imgs.length) {
+                i = 0;
+            }
+            $("#fs_col2_gg img").attr("src", "images/" + imgs[i]);
+            setTimeout("changImg()", 3000);
+        }
+
+    </script>
+</head>
+
+<body id="body">
+<div id="start">
+    <div id="s_logo_1">
+        <a id="s_logo_a"></a>
+    </div>
+    <div id="s_search_2019">
+        <input type="text" id="s_key">
+        <button id="s_button">搜索</button>
+    </div>
+    <div class="s_cw-icon">
+        <a href="Cart.html" id="s_a-icon" >我的购物车</a>
+        <i id="s_iconfont"></i>
+        <i class="s_ci-count" id="s_shopping-amount">0</i>
+    </div>
+</div>
+<div id="shortcut">
+    <div id="w">
+        <div id="menu">
+
+            <div id="dwei">
+                <i class="iconfont iconfont-location"></i>
+                福建
+            </div>
+            <ul class="menuul">
+                <li class="menuli"><a>手机京东</a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a>网站导航</a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a>客户服务</a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a class="red">企业采购<i class="iconfont"></i></a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a href="checkinfo.html">身份验证</a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a>我的京东<i class="iconfont"></i></a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a>我的订单</a></li>
+                <li class="spacer"></li>
+                <li class="menuli"><a id="login">你好，请登录</a>
+                    <a href="Register.html" id="reg_href" class="red">免费注册</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div id="top">
+        <div id="bg-mobile">
+            <div id="mobile"></div>
+        </div>
+        <div id="search">
+            <div class="form">
+                <input type="text" id="key">
+                <button id="button"><i class="iconfont"></i></button>
+            </div>
+            <div class="cw-icon">
+                <i class="iconfont"></i>
+                <a id="a-icon" href="Cart.html">我的购物车</a>
+                <i class="ci-count" id="shopping-amount">0</i>
+            </div>
+        </div>
+        <div id="hotwords">
+            <ul>
+                <li class="menuli"><a class="red">抢大额神券</a></li>
+                <li class="menuli"><a>正品好药</a></li>
+                <li class="menuli"><a>空调锯惠</a></li>
+                <li class="menuli"><a>开关五折</a></li>
+                <li class="menuli"><a>美妆新品</a></li>
+                <li class="menuli"><a>鞋靴清仓</a></li>
+                <li class="menuli"><a>每100-50</a></li>
+                <li class="menuli"><a>纸品生活</a></li>
+                <li class="menuli"><a>养殖消毒</a></li>
+            </ul>
+        </div>
+        <div id="navitems">
+            <ul>
+                <li class="menuli"><a class="red">秒杀</a></li>
+                <li class="menuli"><a class="red">优惠券</a></li>
+                <li class="menuli"><a>PLUS会员</a></li>
+                <li class="menuli"><a>品牌闪购</a></li>
+                <li class="menuli"><a>拍卖</a></li>
+                <li class="menuli"><a>京东时尚</a></li>
+                <li class="menuli"><a>京东超市</a></li>
+                <li class="menuli"><a>京东生鲜</a></li>
+                <li class="menuli"><a>海囤全球</a></li>
+                <li class="menuli"><a>京东金融</a></li>
+            </ul>
+        </div>
+        <div id="logo"><img src="images/jd-logo.jpg" height="110"></div>
+    </div>
+</div>
+<!--这是一条美丽的分割线，哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或或或或或或或或-->
+
+<div id="fs">
+    <div id="fs_inner">
+        <div id="fs_col1">
+            <ul>
+                <li><a>家用电器</a></li>
+                <li><a>手机</a>/<a>运营商</a>/<a>数码</a></li>
+                <li><a>电脑</a>/<a>办公</a></li>
+                <li><a>家居</a>/<a>家具</a>/<a>家装</a>/<a>厨具</a></li>
+                <li><a>男装</a>/<a>女装</a>/<a>童装</a>/<a>内衣</a></li>
+                <li><a>美妆</a>/<a>个护清洁</a>/<a>宠物</a></li>
+                <li><a>女鞋</a>/<a>箱包</a>/<a>钟表</a>/<a>珠宝</a></li>
+                <li><a>男鞋</a>/<a>运动</a>/<a>户外</a></li>
+                <li><a>房产</a>/<a>汽车</a>/<a>汽车用品</a></li>
+                <li><a>母婴</a>/<a>玩具乐器</a></li>
+                <li><a>食品</a>/<a>酒类</a>/<a>生鲜</a>/<a>特产</a></li>
+                <li><a>艺术</a>/<a>礼品鲜花</a>/<a>农贸绿植</a></li>
+                <li><a>医药保健</a>/<a>计生情趣</a></li>
+                <li><a>图书</a>/<a>文娱</a>/<a>电子书</a></li>
+                <li><a>机票</a>/<a>酒店</a>/<a>旅游</a>/<a>生活</a></li>
+                <li><a>理财</a>/<a>众筹</a>/<a>白条</a>/<a>保险</a></li>
+                <li><a>安装</a>/<a>维修</a>/<a>清洗</a>/<a>二手</a></li>
+                <li><a>工业品</a></li>
+            </ul>
+        </div>
+
+        <div id="fs_col2">
+            <div id="fs_col2_gg">
+                <a href=""><img src="images/lb1.jpg.webp" height="100%"></a>
+
+            </div>
+            <div id="fs_col2_gg2">
+                <div class="mm">
+                    <a class="mm" href=""><img src="images/gg2-1.jpg" height="150" width="190"></a>
+                </div>
+                <div class="mm">
+                    <a class="mm" href=""><img src="images/gg2-2.jpg" height="150" width="190"></a>
+                </div>
+                <div class="mm">
+                    <a class="mm" href=""><img src="images/gg2-3.jpg" height="150" width="190"></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="fs_col3">
+            <div id="fs_col3-1">
+                <div>
+                    <div id="user_avatar">
+                        <a id="user_avatar_a" href=""><img src="images/user_acatar.jpg" height="10"></a>
+                    </div>
+                    <div id="user_set">
+                        <a class="hi" id="hello">Hi~欢迎光临京东！</a>
+                        <p><a class="hi" id="yincang">登录</a> | <a href="Register.html" class="hi" id="yincang2">注册</a></p>
+                    </div>
+                    <div id="user_frofet">
+                        <a class="red_anniu" id="red">新人福利</a>
+                        <a class="red_anniu" id="black">PLUS会员</a>
+                    </div>
+                    <div class="xhx"></div>
+                </div>
+            </div>
+            <div id="fs_col3-2">
+                <div id="new_hd">
+                    <h5 id="new_tit">京东快报</h5>
+                    <a id="news_more">更多 <i class="iconfont"></i></a>
+                </div>
+                <div id="news">
+                    <ul>
+                        <li><span class="new_tag">推荐</span><a>华为麒麟990新突破！全新芯片架构横空出世</a></li>
+                        <li><span class="new_tag">最新</span><a>年度真机皇配置！6000mAh+骁龙855 Plus</a></li>
+                        <li><span class="new_tag">热评</span><a>256GB＋8GB＋四曲面，价格感人，你还不出手吗</a></li>
+                        <li><span class="new_tag">热议</span><a>荣耀V30配置提前曝光，麒麟985还只是小亮点</a></li>
+                    </ul>
+                </div>
+                <div class="xhx-2"></div>
+            </div>
+
+            <div id="fs_col3-3">
+                <ul id="table_list">
+                    <li><a><i class="service_ico service_ico_huafei">
+                        <img class="service_ico_img"
+                             src="http://m.360buyimg.com/babel/jfs/t1/30057/19/14881/720/5cbf064aE187b8361/eed6f6cbf1de3aaa.png">
+                        <img class="service_ico_img_hover"
+                             src="http://m.360buyimg.com/babel/jfs/t1/45423/33/385/778/5cd4f265E442a9342/0aff0a42cece09ee.png">
+                    </i>
+                        <span class="service_txt">话费</span>
+                    </a></li>
+                    <li><a><i class="service_ico service_ico_jipiao">
+                        <img class="service_ico_img"
+                             src="http://m.360buyimg.com/babel/jfs/t1/36478/38/5384/2901/5cbf065aEb0c60a12/afb4399323fe3b76.png">
+                        <img class="service_ico_img_hover"
+                             src="http://m.360buyimg.com/babel/jfs/t1/34261/15/10242/3120/5cd4f256E10257aba/8f3f63ae04ff19af.png">
+                    </i>
+                        <span class="service_txt">机票</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico service_ico_jiudian">
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/31069/34/14642/979/5cbf0665Ec7dc8223/5fee386254dd2ebc.png">
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/44601/19/915/1039/5cd4f1cfE2e46473c/b61f083872a7a1de.png">
+                        </i>
+                        <span class="service_txt">酒店</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico service_ico_youxi">
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/32403/22/14829/3699/5cbf0674E04723693/caa83ce9b881cd24.png">
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/57520/8/375/4092/5cd4f1d8Ea1266047/1c590322ece537ba.png">
+                        </i>
+                        <span class="service_txt">游戏</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/39418/35/2029/3048/5cbf06bbE9a6e2beb/6a9b204b0a4cc3d0.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/36002/35/9106/3311/5cd4f1bdE06ff07ed/9570fdd46ecd3a76.png">
+                        </i>
+                        <span class="service_txt">加油卡</span>
+                        <span class="service_corner"><i class="service_corner_txt">惠</i></span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/31847/11/14820/1581/5cbf09bdE07a1e79c/1281c9340ef15c3e.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/58891/36/278/1745/5cd4f1e0Ef4cc50a7/f12276b17e5dcf3b.png">
+                        </i>
+                        <span class="service_txt">火车票</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/33078/37/6694/1685/5cbf09d0E5cea6165/693857001bfb3b17.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/50929/1/374/1847/5cd4f1eaE5daf90db/cebbff76b25dc22e.png">
+                        </i>
+                        <span class="service_txt">众筹</span>
+                    </a></li>
+                    <li><a><i class="service_ico">
+                        <!-- 常态 icon -->
+                        <img class="service_ico_img"
+                             src="http://m.360buyimg.com/babel/jfs/t1/35979/1/3099/3447/5cbf09e4E90c0b4f4/e632d50688935da6.png">
+                        <!-- hover 态 icon -->
+                        <img class="service_ico_img_hover"
+                             src="http://m.360buyimg.com/babel/jfs/t1/47544/23/372/3943/5cd4f24eE92fbcf79/4b49b55af25a7bdf.png">
+                    </i>
+                        <span class="service_txt">理财</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/35663/12/5436/1443/5cbf0a13E614f5bb0/6ab7c7eb7caa4656.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/39983/24/6834/1596/5cd4f247E8cf89f1e/b8a8418d5418f471.png">
+                        </i>
+                        <span class="service_txt">白条</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/34018/19/6744/3066/5cbf09a9Eef05e8bd/6a08fe38fa0f8143.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/41106/15/4551/3300/5cd4f1c7E507148c7/90a218f053e903d2.png">
+                        </i>
+                        <span class="service_txt">电影票</span>
+                        <span class="service_corner"> <i class="service_corner_txt">热</i></span>
+                    </a></li>
+                    <li><a><i class="service_ico">
+                        <!-- 常态 icon -->
+                        <img class="service_ico_img"
+                             src="http://m.360buyimg.com/babel/jfs/t1/74010/31/656/1821/5cedfd1dE574a6d39/21ed5b49bcde9067.png">
+                        <!-- hover 态 icon -->
+                        <img class="service_ico_img_hover"
+                             src="http://m.360buyimg.com/babel/jfs/t1/45316/3/388/884/5cd4f25eEea4c67ed/671f7c186c5e9b01.png">
+                    </i>
+                        <span class="service_txt">企业购</span>
+                    </a></li>
+                    <li><a>
+                        <i class="service_ico">
+                            <!-- 常态 icon -->
+                            <img class="service_ico_img"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/35852/40/5378/815/5cbf09f9E660e7e71/18b5679ed16e6a91.png">
+                            <!-- hover 态 icon -->
+                            <img class="service_ico_img_hover"
+                                 src="http://m.360buyimg.com/babel/jfs/t1/55911/31/402/858/5cd4f23eE6f536460/5da079255c6dfabe.png">
+                        </i>
+                        <span class="service_txt">礼品卡</span>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--	/*华丽的分割线--------------*/-->
+<div class="seckill">
+    <div class="seckill-inner">
+        <a class="seckill_countdown">
+            <div id="countdown_title">京东秒杀</div>
+            <div id="countdown_desc">
+                <strong>10:00</strong> 点场 倒计时
+            </div>
+            <div id="timmer"><span class="timmer__unit timmer__unit--hour">00</span>
+                <span class="timmer__unit timmer__unit--minute">47</span>
+                <span class="timmer__unit timmer__unit--second">47</span>
+            </div>
+        </a>
+        <div class="seckill_list">
+            <div id="slider">
+                <ul>
+                    <li><a class="slider_item">
+                        <button class="slider_control slider_control_prev" aria-hidden="true" tabindex="-1"><i
+                                class="iconfont"></i></button>
+                        <div class="slider_item_p"><img src="images/yifu.jpg.webp"></div>
+                        <h6 class="slider_item_name">全球购阿玛尼ARMANI男装短袖T恤圆领上衣男士打底衫2件装 黑色+白色 170/90 M</h6>
+                        <div class="slider_item_price">
+						<span class="slider_item_price_mosha">
+							<i>¥</i>
+							<span>359.00</span>
+						</span>
+                            <span class="price_orgin">234.00</span>
+                        </div>
+                    </a></li>
+                    <li class="shuxian"></li>
+                    <li><a class="slider_item">
+                        <div class="slider_item_p"><img src="images/yifu.jpg.webp"></div>
+                        <h6 class="slider_item_name">全球购阿玛尼ARMANI男装短袖T恤圆领上衣男士打底衫2件装 黑色+白色 170/90 M</h6>
+                        <div class="slider_item_price">
+						<span class="slider_item_price_mosha mosha2">
+							<i>¥</i>
+							<span>359.00</span>
+						</span>
+                            <span class="price_orgin">234.00</span>
+                        </div>
+                    </a></li>
+                    <li class="shuxian"></li>
+                    <li><a class="slider_item">
+                        <div class="slider_item_p"><img src="images/yifu.jpg.webp"></div>
+                        <h6 class="slider_item_name">全球购阿玛尼ARMANI男装短袖T恤圆领上衣男士打底衫2件装 黑色+白色 170/90 M</h6>
+                        <div class="slider_item_price">
+						<span class="slider_item_price_mosha mosha3">
+							<i>¥</i>
+							<span>359.00</span>
+						</span>
+                            <span class="price_orgin mosha4">234.00</span>
+                        </div>
+                    </a></li>
+                    <li class="shuxian"></li>
+                    <li><a class="slider_item">
+                        <div class="slider_item_p"><img src="images/yifu.jpg.webp"></div>
+                        <h6 class="slider_item_name">全球购阿玛尼ARMANI男装短袖T恤圆领上衣男士打底衫2件装 黑色+白色 170/90 M</h6>
+                        <div class="slider_item_price">
+						<span class="slider_item_price_mosha">
+							<i>¥</i>
+							<span>359.00</span>
+						</span>
+                            <span class="price_orgin">234.00</span>
+                        </div>
+                        <button class="slider_control slider_control_next" aria-hidden="true" tabindex="-1"><i
+                                class="iconfont" clstag="core|seckill_sr"></i></button>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="seckill_brand">
+            <a class="seckill_brand_a">
+                <div class="seckill_brand_p fd"><img src="images/zhuozi.jpg.webp" height="120px"></div>
+                <div class="seckill_brand_p bs"></div>
+                <div class="seckill_brand_t">
+                    <p class="seckkill_brand_t1">母婴好物</p>
+                    <p class="seckkill_brand_t2">低至9.9元</p>
+                    <div class="seckill_brand_div">
+                        品类秒杀 <i class="iconfont"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="elevator">
+    <ul>
+        <li class="shu">
+            <a class="elevator_a">京东秒杀</a>
+        </li>
+        <li class="heng"></li>
+        <li class="shu">
+            <a class="elevator_a">特色优选</a>
+        </li>
+        <li class="heng"></li>
+        <li class="shu">
+            <a class="elevator_a">频道广场</a>
+        </li>
+        <li class="heng"></li>
+        <li class="shu">
+            <a class="elevator_a">为你推荐</a>
+        </li>
+        <li class="heng"></li>
+        <li class="shu">
+            <a class="elevator_a">
+                <div class="lian"></div>
+                客服
+            </a>
+        </li>
+        <li class="heng"></li>
+        <li class="shu">
+            <a class="elevator_a">
+                <div class="lian"></div>
+                反馈
+            </a>
+        </li>
+
+    </ul>
+
+
+</div>
+
+
+</body>
+<iframe src="footer.html" style="width: 100%; height: 300px; border: none" scrolling="no">
+</iframe>
+<script>
+
+</script>
+</html>

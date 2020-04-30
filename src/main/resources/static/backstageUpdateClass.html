@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/backstage.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery.validate.js" type="application/javascript"></script>
+    <script src="js/jquery.validate.regex.js" type="application/javascript"></script>
+    <script src="js/layer.js" type="application/javascript"></script>
+    <script>
+        $(function () {
+
+
+
+            var changeClass = new Vue({
+                el:"#changeClass",
+                data:{
+                    keyWord:'',
+                    className:'',
+                    classId:'',
+                    classBelong:'',
+                    classStyle:'',
+                    result:[],
+                    allBigClass:[]
+                },
+                methods:{
+                    toGet:function () {
+                        changeClass.className = '';
+                        changeClass.classId = '';
+                        changeClass.classBelong = '';
+                        if (this.keyWord == ''){
+                            alert("请输入关键字")
+                        }else{
+                            if (changeClass.classStyle=='小类') {
+                                changeClass.allBigClass = [];
+                                $.ajax({
+                                    url:"http://localhost:8080/backstage/search/bigclass" ,
+                                    type:"post",
+                                    datatype:"json",
+                                    success:function (data) {
+                                        for (var i = 0; i < data.length; i++){
+                                            changeClass.allBigClass.push({
+                                                bclassName : data[i].bclassName
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                            $.ajax({
+                                url:changeClass.classStyle=='小类' ? "http://localhost:8080/backstage/search/smallclass" : "http://localhost:8080/backstage/search/bigclass",
+                                data:{
+                                    keyWord:changeClass.keyWord
+                                },
+                                type:'post',
+                                datatype:"json",
+                                success:function (data) {
+                                    if (data.length < 1){
+                                        alert("查询失败，数据库中没有这个")
+                                    } else {
+                                        if (changeClass.classStyle=='小类') {
+                                            changeClass.className = data[0].sclassName;
+                                            changeClass.classId = data[0].sclassId;
+                                            changeClass.classBelong = data[0].bclassName;
+                                        }else{
+                                            changeClass.className = data[0].bclassName;
+                                            changeClass.classId = data[0].bclassId;
+                                        }
+                                    }
+
+                                },
+                                error:function () {
+                                }
+                            })
+                        }
+                        changeClass.keyWord = '';
+
+                    },
+                    toSelectBig:function () {
+                        this.classStyle = '大类';
+                        changeClass.toGet();
+                    },
+                    toSelectSmall:function () {
+                        this.classStyle = '小类';
+                        changeClass.toGet();
+                    },
+                    toChangeBelong:function (index) {
+                        this.classBelong = changeClass.allBigClass[index].bclassName;
+                    }
+                }
+            });
+
+            var className=sessionStorage.getItem("className");
+            var classId=sessionStorage.getItem("classId");
+            sessionStorage.removeItem("className");
+            sessionStorage.removeItem("classId");
+            if (classId != null && className != null){
+                changeClass.keyWord = classId;
+                if (className == '大类'){
+                    $("i:contains('所属大类')").parent().hide();
+                    changeClass.toSelectBig();
+                }else if(className == '小类'){
+                    changeClass.toSelectSmall();
+                }
+            }
+
+            $(".form_changeClass").validate({
+                rules: {
+                    newClassName: {
+                        required: true,
+                        regex: /^\w{2,20}|[\u4e00-\u9fa5]{2,20}$/
+                    }
+                },
+                messages:{
+                    newClassName:{
+                        required: "错误",
+                        regex: "错误"
+                    }
+                },
+                submitHandler:function () {
+                    $.ajax({
+                        url:changeClass.classStyle=='小类' ? "http://localhost:8080/backstage/change/smallclass" : "http://localhost:8080/backstage/change/bigclass",
+                        datatype:"json",
+                        type:"post",
+                        data:{
+                            deleteId:changeClass.classId,
+                            className:changeClass.className,
+                            classBelong:changeClass.classBelong
+                        },
+                        success:function () {
+                            alert("修改成功。")
+                        }
+                    })
+                }
+            });
+
+            $("a:contains('大类')").click(function () {
+                $("i:contains('所属大类')").parent().hide();
+            });
+            $("a:contains('小类')").click(function () {
+                $("i:contains('所属大类')").parent().show();
+            });
+        })
+    </script>
+
+</head>
+<body>
+<div class="iframe" id="changeClass">
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">资料库</a></li>
+        <li><a href="#">数据</a></li>
+    </ul>
+    <div class="xiaLa" style="width: 500px; height: 40px">
+        <div class="class_search sea2" style="width: 500px">
+            <div class="input-group">
+                <input type="text" class="form-control" v-model="keyWord"/>
+                    <div class="dropdown input-group-btn">
+            <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                搜索：
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" @click="toSelectBig">大类</a></li>
+                <li><a href="#" @click="toSelectSmall">小类</a></li>
+            </ul>
+        </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="form_changeClass">
+        <ul>
+            <li><i>所选类别：</i><i>{{classStyle}}</i></li>
+            <li><i>类别名称：</i>
+                    <input type="text" v-model="className" name="newClassName">
+            </li>
+            <li>
+                <i style="float: left">类别主键：</i>
+                <div class="classId">{{classId}}</div>
+            </li>
+            <li><i>所属大类：</i>
+
+                <div class="dropdown classBelong_div">
+                    <button class="btn btn-default dropdown-toggle btn-sm" type="button"  data-toggle="dropdown">
+                        修改
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li v-for="(re,index) in allBigClass"><a href="#" @click="toChangeBelong(index)">{{re.bclassName}}</a></li>
+                    </ul>
+                </div>
+                <div class="classBelong_input">
+                    {{classBelong}}
+                </div>
+
+            </li>
+            <li>
+                <button type="submit" class="btn btn-primary btn-sm center-block"
+                        style="margin-top: 10px">提交</button>
+            </li>
+        </ul>
+    </form>
+</div>
+
+</body>
+</html>
+
+

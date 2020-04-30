@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.myjd.mapper.ProductMapper" >
+  <resultMap id="ProductResultMap" type="org.lanqiao.myjd.entity.Product" >
+    <id column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="pro_Bclass_id" property="proBclassId" jdbcType="INTEGER" />
+    <result column="pro_Sclass_id" property="proSclassId" jdbcType="INTEGER" />
+    <result column="pro_price" property="proPrice" jdbcType="REAL" />
+    <result column="pro_count" property="proCount" jdbcType="INTEGER" />
+    <result column="pro_words" property="proWords" jdbcType="VARCHAR" />
+    <result column="pro_date" property="proDate" jdbcType="TIMESTAMP" />
+    <result column="page_count" property="pageCount" jdbcType="INTEGER" />
+    <association property="productPic" resultMap="ProductPicResultMap"></association>
+  </resultMap>
+
+  <resultMap id="ProductPicResultMap" type="org.lanqiao.myjd.entity.ProductPic" >
+    <id column="pic_id" property="picId" jdbcType="INTEGER" />
+    <result column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="pic_words" property="picWords" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="pic_master" property="picMaster" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    pro_id, pro_name, pro_Bclass_id, pro_Sclass_id, pro_price, pro_count, pro_words, 
+    pro_date
+  </sql>
+
+  <select id="getPageCount" resultMap="ProductResultMap" parameterType="Key">
+    select count(pro_id) as page_count  from (
+    select * from product
+    <where>
+    <if test="lowPrice > 0 and highPrice > 0">
+      pro_price BETWEEN #{lowPrice} and #{highPrice}
+    </if>
+    <if test="keyWord != '' and keyWord != null ">
+      and pro_id in (
+      select pro_id from product where
+      pro_Bclass_Id = (select Bclass_id from bigclass where Bclass_name like "%${keyWord}%"  )
+      or
+      pro_Sclass_ID = (select Sclass_id from smallclass where Sclass_name like "%${keyWord}%")
+      or
+      pro_name like "%${keyWord}%"
+      )
+    </if>
+  </where>
+    ) s
+  </select>
+
+  <select id="getAll" resultMap="ProductResultMap" parameterType="Key">
+    select s.*, p.pic_url from (
+    select * from product
+    <where>
+      <if test="lowPrice > 0 and highPrice > 0">
+        pro_price BETWEEN #{lowPrice} and #{highPrice}
+      </if>
+      <if test="keyWord != '' and keyWord != null ">
+       and pro_id in (
+       select pro_id from product where
+        pro_Bclass_Id = (select Bclass_id from bigclass where Bclass_name like "%${keyWord}%"  )
+        or
+        pro_Sclass_ID = (select Sclass_id from smallclass where Sclass_name like "%${keyWord}%")
+        or
+        pro_name like "%${keyWord}%" or pro_words like "%${keyWord}%"
+        )
+      </if>
+      <if test="newKeyWord != null and newKeyWord != '' and keyWord != '' and keyWord != null">
+        and pro_id in (
+        select pro_id from product where
+        pro_Bclass_Id = (select Bclass_id from bigclass where Bclass_name like "%${newKeyWord}%"  )
+        or
+        pro_Sclass_ID = (select Sclass_id from smallclass where Sclass_name like "%${newKeyWord}%")
+        or
+        pro_name like "%${newKeyWord}%" or pro_words like "%${newKeyWord}%"
+        )
+      </if>
+    </where>
+    <if test="sort != '' and sort != null" >
+        order by ${sort}
+      </if>
+    limit #{pageNum} , #{pageSize} ) s,
+    productPic p where s.pro_id = p.pro_id
+    <if test="sort != '' and sort != null" >
+      order by ${sort}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ProductResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.myjd.entity.Product" >
+    insert into product (pro_id, pro_name, pro_Bclass_id, 
+      pro_Sclass_id, pro_price, pro_count, 
+      pro_words, pro_date)
+    values (#{proId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR}, #{proBclassId,jdbcType=INTEGER}, 
+      #{proSclassId,jdbcType=INTEGER}, #{proPrice,jdbcType=REAL}, #{proCount,jdbcType=INTEGER}, 
+      #{proWords,jdbcType=VARCHAR}, #{proDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.myjd.entity.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="proName != null" >
+        pro_name,
+      </if>
+      <if test="proBclassId != null" >
+        pro_Bclass_id,
+      </if>
+      <if test="proSclassId != null" >
+        pro_Sclass_id,
+      </if>
+      <if test="proPrice != null" >
+        pro_price,
+      </if>
+      <if test="proCount != null" >
+        pro_count,
+      </if>
+      <if test="proWords != null" >
+        pro_words,
+      </if>
+      <if test="proDate != null" >
+        pro_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proBclassId != null" >
+        #{proBclassId,jdbcType=INTEGER},
+      </if>
+      <if test="proSclassId != null" >
+        #{proSclassId,jdbcType=INTEGER},
+      </if>
+      <if test="proPrice != null" >
+        #{proPrice,jdbcType=REAL},
+      </if>
+      <if test="proCount != null" >
+        #{proCount,jdbcType=INTEGER},
+      </if>
+      <if test="proWords != null" >
+        #{proWords,jdbcType=VARCHAR},
+      </if>
+      <if test="proDate != null" >
+        #{proDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.myjd.entity.Product" >
+    update product
+    <set >
+      <if test="proName != null" >
+        pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proBclassId != null" >
+        pro_Bclass_id = #{proBclassId,jdbcType=INTEGER},
+      </if>
+      <if test="proSclassId != null" >
+        pro_Sclass_id = #{proSclassId,jdbcType=INTEGER},
+      </if>
+      <if test="proPrice != null" >
+        pro_price = #{proPrice,jdbcType=REAL},
+      </if>
+      <if test="proCount != null" >
+        pro_count = #{proCount,jdbcType=INTEGER},
+      </if>
+      <if test="proWords != null" >
+        pro_words = #{proWords,jdbcType=VARCHAR},
+      </if>
+      <if test="proDate != null" >
+        pro_date = #{proDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.myjd.entity.Product" >
+    update product
+    set pro_name = #{proName,jdbcType=VARCHAR},
+      pro_Bclass_id = #{proBclassId,jdbcType=INTEGER},
+      pro_Sclass_id = #{proSclassId,jdbcType=INTEGER},
+      pro_price = #{proPrice,jdbcType=REAL},
+      pro_count = #{proCount,jdbcType=INTEGER},
+      pro_words = #{proWords,jdbcType=VARCHAR},
+      pro_date = #{proDate,jdbcType=TIMESTAMP}
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+</mapper>

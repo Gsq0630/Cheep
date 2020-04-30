@@ -1,0 +1,61 @@
+#bigBox{ width: 80%; height: 100%; margin-top: 20px;}
+#tile{width: 50%;text-align: center; font-size: 36px;color: #337ab7;}
+#lieBiao{width:200px;text-align:center;margin-top: 10px;background-color: white}
+.iframe{width: 1000px;height: 580px; border: 0; background-color: rgba(244,244,244,0.81)}
+.biao{width: 80%;margin: 40px auto 0;}
+.tableHead{background-color: #337ab7;color: white;}
+.tableHead th{text-align: center;}
+.yeMa_size{width: 34px}
+.xiaLa{width: 80%;height: 50px;margin: 0 auto;}
+/*.xiaLa_update{width: 80%;height: 50px;margin: 0 auto;}*/
+.xiaLa p{float: left; line-height: 34px; font-size: 14px;
+    color: #337ab7;font-weight: bold }
+i{font-style: normal}
+.anniu2{width:200px;margin:0 auto;position: relative;}
+.anniu1{width:200px;margin:0 auto;position: relative;}
+.class_search{width:400px;margin:0 auto;position: relative;
+    float: left;}
+.form_changeClass{width: 300px;height: 400px;
+    margin: 20px auto 0;border-radius: 5px;
+    box-shadow: #337ab7 0 0  10px 0;
+}
+.form_changeClass li{
+    list-style: none;
+    height: 80px;
+    line-height: 80px;
+}
+.form_changeClass input{
+    height: 26px;
+    width: 150px;
+}
+.classBelong_div{
+    float: right;
+    margin-right: 10px;
+}
+.classBelong_input{
+    width: 120px;
+    height: 26px;
+    float: right;
+    margin: 27px 0;
+    background-color: #ffffff;
+    border: #aaa 1px solid;
+    line-height: 26px;
+}
+.classId{
+    width: 150px;
+    height: 26px;
+    float: right;
+    margin: 27px 37px 0 0;
+    background-color: #ffffff;
+    border: #aaa 1px solid;
+    line-height: 26px;
+}
+.dropdown-menu li{
+    height: 20px;
+    line-height: 20px;
+}
+.error{
+    color: red;
+    height: 24px;
+    line-height: 24px;
+}

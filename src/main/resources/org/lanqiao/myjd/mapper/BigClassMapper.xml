@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.myjd.mapper.BigClassMapper" >
+  <resultMap id="BigClassResultMap" type="org.lanqiao.myjd.entity.BigClass" >
+    <id column="Bclass_id" property="bclassId" jdbcType="INTEGER" />
+    <id column="bclassPageCount" property="bclassPageCount" jdbcType="INTEGER" />
+    <result column="Bclass_name" property="bclassName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Bclass_id, Bclass_name
+  </sql>
+
+  <select id="selectByBigClassName" resultMap="BigClassResultMap" parameterType="String">
+    select Bclass_id from bigclass where Bclass_name = #{name}
+  </select>
+
+  <select id="getBigClassCount" resultMap="BigClassResultMap">
+    select count(Bclass_id) as bclassPageCount from bigclass
+
+  </select>
+
+  <select id="getAllBigClass" resultMap="BigClassResultMap" parameterType="Key">
+    select <include refid="Base_Column_List" /> from bigclass
+    <where>
+      <if test="keyWord != null and keyWord != ''" >
+        Bclass_name like '%${keyWord}%' or Bclass_id = cast(#{keyWord} as unsigned int)
+      </if>
+    </where>
+    <if test="smallPageSize > 0 and smallPageNum >= 0">
+      limit #{smallPageNum} , #{smallPageSize}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BigClassResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bigclass
+    where Bclass_id = #{bclassId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bigclass
+    where Bclass_id = #{bclassId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.myjd.entity.BigClass" >
+    insert into bigclass (Bclass_id, Bclass_name)
+    values (#{bclassId,jdbcType=INTEGER}, #{bclassName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.myjd.entity.BigClass" >
+    insert into bigclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bclassId != null" >
+        Bclass_id,
+      </if>
+      <if test="bclassName != null" >
+        Bclass_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bclassId != null" >
+        #{bclassId,jdbcType=INTEGER},
+      </if>
+      <if test="bclassName != null" >
+        #{bclassName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.myjd.entity.BigClass" >
+    update bigclass
+    <set >
+      <if test="bclassName != null" >
+        Bclass_name = #{bclassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Bclass_id = #{bclassId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.myjd.entity.BigClass" >
+    update bigclass
+    set Bclass_name = #{bclassName,jdbcType=VARCHAR}
+    where Bclass_id = #{bclassId,jdbcType=INTEGER}
+  </update>
+</mapper>

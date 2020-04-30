@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>京东购物车</title>
+    <link rel="stylesheet" href="css/base1.css">
+    <link rel="stylesheet" href="css/Cart.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+</head>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script>
+    //cookie拦截
+    // $(".cart-empty").css("display","block");
+    //
+    // {
+    //     $(".cart-bar").css("display","none");
+    //     $(".cart-main").css("display","none");
+    //     $(".cart-box").css("display","none");
+    // }
+</script>
+<body>
+<div id="menu">
+    <div id="menu_content">
+        <ul id="m_left">
+            <li id="ttbar-home">
+                <i class="iconfont"></i>
+                <a href="//www.jd.com/" target="_blank">京东首页</a></li>
+            <li class="iconfont red font14"></li>
+            <li>厦门</li>
+        </ul>
+        <ul id="m_right">
+            <li id="m_right_first">你好，请登录 &nbsp;<span class="red">免..</span></li>
+            <li class="spacer"></li>
+            <li class="dt"><a>我的订单</a></li>
+            <li class="spacer"></li>
+            <li class="dt1"><a>我的京东</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt"><a>京东会员</a></li>
+            <li class="spacer"></li>
+            <li class="dt1"><span class="red">企业采购</span><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt1">客户服务<i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt1">网站导航<i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt">手机京东</li>
+        </ul>
+    </div>
+</div>
+
+<div id=head>
+    <div class="hlogo">
+        <a href="http://www.jd.com/" class="logo2"></a>
+        <a href="#none" class="link2"><b></b>购物车</a>
+    </div>
+    <div id="search">
+        <input type="text" value="search..." class="text">
+        <div id="icon">
+            <input type="button" class="button" value="搜索">
+        </div>
+    </div>
+
+</div>
+<div class="cart-empty">
+    <div class="message">
+        <ul>
+            <li class="txt">
+                购物车内暂时没有商品，登录后将显示您之前加入的商品
+            </li>
+            <li>
+                <a href="#none" class="btn-1 login-btn mr10">登录</a>
+                <a href="//www.jd.com/" class="ftx-05">
+                    去购物&gt;
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="cart-bar">
+    <ul class="cart-num">
+        <li class="cart-num-li">
+            <a href="#">
+                <em>全部商品</em>
+                <span class="number"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="address">
+        <div class="option-addresss">
+            <input type="text" value="">
+        </div>
+        <span class="label">配送至：</span>
+    </div>
+</div>
+<div class="cart-main">
+    <div class="cart-head">
+        <div class="column t-checkbox">
+            <!--            <div class="cart-checkbox">-->
+            <!--                <input type="checkbox" class="jdcheckbox" checked="checked">-->
+            <!--            </div>-->
+            <!--            全选-->
+        </div>
+        <div class="column t-goods">商品</div>
+        <div class="column t-space"></div>
+        <div class="column t-price">单价</div>
+        <div class="column t-num">数量</div>
+        <div class="column t-sum">小计</div>
+        <div class="column t-action">操作</div>
+    </div>
+    <div class="shop">
+        <!--        <div class="cart-checkbox">-->
+        <!--            <input type="checkbox" checked="checked" class="checkbox">-->
+        <!--        </div>-->
+        <span class="shop-txt">
+            <a class="shop-type"> 京东自营 </a>
+        </span>
+        <span class="shop-coupon">
+        <a class="coupon-link">优惠券</a><
+            </span>
+    </div>
+    <div class="shop-list">
+        <div class="shop-head">
+            <span class="full-icon full-icon2">
+                满减<b></b>
+				</span>
+            <a href="#" class="shop-head-link">活动商品购满2件，即可享受满减 ></a>
+            <a href="#" class="shop-head-link">去凑单 ></a>
+            <div class="f-price" style="display: none">
+                <strong>¥12.90</strong>
+            </div>
+        </div>
+        <div class="shop-info" v-for="produce in products">
+            <div class="cell p-checkbox">
+                <div class="cart-checkbox">
+                    <input type="checkbox" class="checkbox" @click="checkbox($index)">
+                    <span class="line-circle"></span>
+                </div>
+            </div>
+            <ul>
+                <div class="info">
+                    <a href="#" class="shop-img">
+                        <img :alt="produce.picwords"
+                             :src="produce.picurl">
+                    </a>
+                    <div class="p-name">
+                        <a href="#"></a>
+                        <em class="market-icon"></em>
+                        {{produce.names}}
+                        </a>
+                    </div>
+                    <div class="shop-type-link">
+                        <i class="jd-giftcard-icon"></i>
+                        <a href="#">选包装（现无可选项）</a>
+                    </div>
+                    <div class="info-txt">{{produce.words}}</div>
+                    <div class="p-price">
+                        <p>
+                            <strong name="price">{{produce.prices}}￥</strong>
+                        </p>
+                        <div>
+                            <a class="sales-promotion ml5" href="#none">促销<b></b></a>
+                            <div class="clr"></div>
+                        </div>
+                        <p class="mt5" jj="">
+                        </p>
+                        <p class="mt5" bt=""></p>
+                    </div>
+                    <div class="p-quantity">
+                        <!-- 满减 -->
+                        <div class="quantity-form">
+                            <a href="" class="buttondecre" @click="decOne($index)">-</a>
+                            <input class="shop-cartId" :value="produce.cartId"></input>
+                            <input name="num" type="text" class="itxt" :value="produce.count" minnum="0"
+                                   style="color: rgb(51, 51, 51);"/>
+                            <a href="" class="buttonincre" @click="addOne($index)">+</a>
+                        </div>
+                        <div class="quantity-txt">有货</div>
+                    </div>
+                    <div class="p-sum">
+                        <strong>{{AllPrice($index)}}￥</strong>
+                        <span class="weight" num="1"></span>
+                    </div>
+                    <div class="p-option">
+                        <!-- 满减 -->
+                        <a class="cart-remove" @click="deletePerson($index)">删除</a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="option-box">
+    <div class="carts-checkbox">
+        <input type="checkbox" class="jdcheckbox" onclick="checkboxSum()">
+        <label class="checked">全选</label>
+    </div>
+    <a href="#" class="option-link">删除选中商品</a>
+    <a href="#" class="option-link" id="clearAll">清理购物车</a>
+    <div class="option-box-right">
+        <div class="amount-sum">
+            <p class="amount-sum-txt">已选择<strong style="color:red;"></strong>件产品</p>
+        </div>
+        <div class="price-sum">
+            <div>
+                <span class="txt txt-new">总价：</span>
+                <span class="price sumPrice">
+										<em name="sumPrice"></em>
+									</span>
+                <b class="price-tips"></b>
+                <br>
+                <div id="price-sum-extra-1" class="price-sum-extra">
+                    <span class="">促销：</span>
+                    <span class="">-¥1.58</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-smart">
+    <h3><b class="smart-head hl"></b><i class="smart-logo"></i>购物车帮你选<b class="smart-head hr"></b></h3>
+    <p class="ac ftx-10 mt5">看看加购过该商品的人还喜欢哪些</p>
+    <div class="cart-smart-main">
+        <div class="item-main">
+            <div class="item-pic fl"><a href="//item.jd.com/963181.html" target="_blank"><img
+                    src="//img14.360buyimg.com/n1/s48x48_jfs/t20365/316/1216991915/173915/859d65d4/5b221170Nfc40038d.jpg"
+                    alt="乐事（Lay’s）无限薯片 休闲零食 104g*3组合装（原味+烤肉+番茄）百事食品"></a></div>
+            <div class="item-cont ">
+                <p class="ftx-07">
+                    <a>
+                        乐事（Lay’s）无限薯片 休闲零食 104g*3组合装（原味+烤肉+番茄）百事食品
+                    </a>
+                </p>
+                <p class="ftx-10">
+                    原味+烤肉+番茄
+                </p>
+                <p class="item-price "><em>¥</em><i>19.90</i></p></div>
+        </div>
+        <div class="smart-items">
+            <div class="smart-item">
+                <div class="mt20 mb10 ac">
+                    <a>
+                        <img src="//img14.360buyimg.com/n1/s150x150_jfs/t1/9369/38/4022/64510/5bd975b7Eddcf021d/ebd6d12cb8dfc4d1.jpg"
+                             alt="">
+                    </a>
+                </div>
+                <div class="item-name">
+                    <a class="ftx-07">乐事薯片超值分享装210g</a>
+                </div>
+                <div class="mt5">
+                    <em>¥</em><i style="color:red;font-size: small">19.90</i><br>
+                    <span><em>35717</em>人已购买</span><a class="fr btn-append">
+                </a>
+                </div>
+                <a class="fr btn-append" style="float: right;">
+                    <i class="addtocart-btn">
+                    </i>
+                </a>
+            </div>
+            <div class="smart-item">
+                <div class="mt20 mb10 ac">
+                    <a>
+                        <img src="//img14.360buyimg.com/n1/s150x150_jfs/t1/9369/38/4022/64510/5bd975b7Eddcf021d/ebd6d12cb8dfc4d1.jpg"
+                             alt="">
+                    </a>
+                </div>
+                <div class="item-name">
+                    <a class="ftx-07">乐事薯片超值分享装210g</a>
+                </div>
+                <div class="mt5">
+                    <em>¥</em><i style="color:red;font-size: small">19.90</i><br>
+                    <span><em>35717</em>人已购买</span><a class="fr btn-append">
+                </a>
+                </div>
+                <a class="fr btn-append" style="float: right;">
+                    <i class="addtocart-btn">
+                    </i>
+                </a>
+            </div>
+            <div class="smart-item">
+                <div class="mt20 mb10 ac">
+                    <a>
+                        <img src="//img14.360buyimg.com/n1/s150x150_jfs/t1/9369/38/4022/64510/5bd975b7Eddcf021d/ebd6d12cb8dfc4d1.jpg"
+                             alt="">
+                    </a>
+                </div>
+                <div class="item-name">
+                    <a class="ftx-07">乐事薯片超值分享装210g</a>
+                </div>
+                <div class="mt5">
+                    <em>¥</em><i style="color:red;font-size: small">19.90</i><br>
+                    <span><em>35717</em>人已购买</span><a class="fr btn-append">
+                </a>
+                </div>
+                <a class="fr btn-append" style="float: right;">
+                    <i class="addtocart-btn">
+                    </i>
+                </a>
+            </div>
+            <div class="smart-item">
+                <div class="mt20 mb10 ac">
+                    <a>
+                        <img src="//img14.360buyimg.com/n1/s150x150_jfs/t1/9369/38/4022/64510/5bd975b7Eddcf021d/ebd6d12cb8dfc4d1.jpg"
+                             alt="">
+                    </a>
+                </div>
+                <div class="item-name">
+                    <a class="ftx-07">乐事薯片超值分享装210g</a>
+                </div>
+                <div class="mt5">
+                    <em>¥</em><i style="color:red;font-size: small">19.90</i><br>
+                    <span><em>35717</em>人已购买</span><a class="fr btn-append">
+                </a>
+                </div>
+                <a class="fr btn-append" style="float: right;">
+                    <i class="addtocart-btn">
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="list-line">
+    <div class="extra-l">
+        <a href="#none" class="extratext">猜你喜欢</a>
+        <a href="#none" class="extratext2">随手购</a>
+    </div>
+    <div class="extra-r">
+    </div>
+</div>
+<div class="list">
+    <div class="item" onmouseenter="border()">
+        <div class="l-img">
+            <a target="_blank" href="//item.jd.com/1798191.html">
+                <img width="160" height="160"
+                     src="//img11.360buyimg.com/n4/s160x160_jfs/t2689/10/4226899160/314552/e94acdda/57b27230N22c42f00.jpg">
+            </a>
+        </div>
+        <div class="l-name">
+            <a target="_blank" href="//item.jd.com/1798191.html">【京东超市】益达（Extra）木糖醇无糖口香糖蜜桃芒果混合味70粒98g单瓶装</a>
+        </div>
+        <div class="l-price">
+            <strong><em>￥</em><i>13.50</i></strong>
+        </div>
+        <div class="l-btn">
+            <a href="#none" _pid="1798191" class="a-btn">
+                <b></b>加入购物车</a>
+        </div>
+    </div>
+    <div class="item" onmouseenter="border()">
+        <div class="l-img">
+            <a target="_blank" href="//item.jd.com/1798191.html">
+                <img width="160" height="160"
+                     src="//img11.360buyimg.com/n4/s160x160_jfs/t2689/10/4226899160/314552/e94acdda/57b27230N22c42f00.jpg">
+            </a>
+        </div>
+        <div class="l-name">
+            <a target="_blank" href="//item.jd.com/1798191.html">【京东超市】益达（Extra）木糖醇无糖口香糖蜜桃芒果混合味70粒98g单瓶装</a>
+        </div>
+        <div class="l-price">
+            <strong><em>￥</em><i>13.50</i></strong>
+        </div>
+        <div class="l-btn">
+            <a href="#none" _pid="1798191" class="a-btn">
+                <b></b>加入购物车</a>
+        </div>
+    </div>
+    <div class="item" onmouseenter="border()">
+        <div class="l-img">
+            <a target="_blank" href="//item.jd.com/1798191.html">
+                <img width="160" height="160"
+                     src="//img11.360buyimg.com/n4/s160x160_jfs/t2689/10/4226899160/314552/e94acdda/57b27230N22c42f00.jpg">
+            </a>
+        </div>
+        <div class="l-name">
+            <a target="_blank" href="//item.jd.com/1798191.html">【京东超市】益达（Extra）木糖醇无糖口香糖蜜桃芒果混合味70粒98g单瓶装</a>
+        </div>
+        <div class="l-price">
+            <strong><em>￥</em><i>13.50</i></strong>
+        </div>
+        <div class="l-btn">
+            <a href="#none" _pid="1798191" class="a-btn">
+                <b></b>加入购物车</a>
+        </div>
+    </div>
+    <div class="item" id="red" onmouseenter="border()">
+        <div class="l-img">
+            <a target="_blank" href="//item.jd.com/1798191.html">
+                <img width="160" height="160"
+                     src="//img11.360buyimg.com/n4/s160x160_jfs/t2689/10/4226899160/314552/e94acdda/57b27230N22c42f00.jpg">
+            </a>
+        </div>
+        <div class="l-name">
+            <a target="_blank" href="//item.jd.com/1798191.html">【京东超市】益达（Extra）木糖醇无糖口香糖蜜桃芒果混合味70粒98g单瓶装</a>
+        </div>
+        <div class="l-price">
+            <strong><em>￥</em><i>13.50</i></strong>
+        </div>
+        <div class="l-btn">
+            <a href="#none" _pid="1798191" class="a-btn">
+                <b></b>加入购物车</a>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <iframe id="footerFrame" name="footerFrame" src="footer.html" width="1280" height="400" frameborder="0"
+            scrolling="no"></iframe>
+</div>
+</body>
+</html>
+<script src="js/vue.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script>
+    var state = false;
+    var vm = new Vue({
+        el: ".shop-list",
+        data: {
+            products: [],
+        },
+
+        methods: {
+            AllPrice: function (i) {
+                return this.products[i].prices * this.products[i].count;
+            },
+            // addnew:function () {
+            //     var i = Math.floor(Math.random()*4);
+            //     //判断是否重复
+            //     var flag = -1;
+            //     for(var j = 0;j < this.products.length;j++){
+            //         if(this.products[j].name == pro[i]){
+            //             flag=j;
+            //             break;
+            //         }
+            //     }
+            //     if(flag == -1)
+            //         this.products.push({name:pro[i],price:price[i],num:1});
+            //     else
+            //         this.products[flag].num++;
+            //
+            // },
+            deletePerson: function (index) {
+                //删一个数组元素
+                this.products.splice(index, 1);
+                deleteP = index + 1;
+                $(".cart-main").css("height", "-=108");
+                if(this.products.length == 0)
+                    $(".cart-empty").css("display","block");
+                    $(".cart-bar").css("display","none");
+                    $(".cart-main").css("display","none");
+                    $(".cart-box").css("display","none");
+            },
+            decOne: function (index) {
+                var decP = index + 1;
+                if (this.products[index].count > 1) {
+                    $.ajax({
+                        url: "http://localhost:8080/cart/decreOne",
+                        method: 'post',
+                        //发送格式为json
+                        data: {"cartId": decP},
+                        success: function () {
+                            decP = -1;
+                        }
+                    })
+                } else if (confirm("是否将该商品移除购物车？"))
+                    this.products.splice(index, 1);
+                deleteP = index + 1;
+            },
+            addOne: function (index) {
+                var addP = index + 1;
+                $.ajax({
+                    url: "http://localhost:8080/cart/increOne",
+                    method: 'post',
+                    //发送格式为json
+                    data: {"cartId": addP},
+                    success: function () {
+                        addP = -1;
+                    }
+                })
+            },
+            checkbox: function (index) {
+                if (!$(".jdcheckbox").prop('checked')) {
+                    if ($(".checkbox").eq(index).prop('checked')) {
+                        var sum = parseFloat($('em[name="sumPrice"]').text()) + parseFloat($(".p-sum strong").eq(index).text());
+                        $('em[name="sumPrice"]').html(sum + "￥");
+                        $(".amount-sum-txt strong").text(parseFloat($(".amount-sum-txt strong").text())+1);
+                    } else {
+                        var sum = parseFloat($('em[name="sumPrice"]').text()) - parseFloat($(".p-sum strong").eq(index).text());
+                        $('em[name="sumPrice"]').html(sum + "￥");
+                        $(".amount-sum-txt strong").text(parseFloat($(".amount-sum-txt strong").text())-1);
+                    }
+                }
+
+            }
+        }
+    });
+
+    $(function () {
+
+        //cookie
+        var accId = $.cookie('accId');
+        if(accId === undefined){
+            location.href = "login.html";
+        }
+        //展示购物车
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新购物车列表，暂且手动输入1进行模拟
+            url: "http://localhost:8080/cart/getCartList",
+            type: "post",
+            datatype: "json",
+            data: {"usersId": parseInt(accId)},
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    // 不需要使用this.
+                    vm.products.push({
+                        cartId: data[i].cartId,
+                        picurl: data[i].pic.picUrl,
+                        names: data[i].product.proName,
+                        words: data[i].product.proWords,
+                        picwords: data[i].pic.picWords,
+                        prices: data[i].product.proPrice,
+                        count: data[i].cartCount
+                    });
+                    $(".cart-main").css("height", "+=108");
+                    //显示商品列数
+                    $(".number").text(vm.products.length);
+                    $(".amount-sum-txt strong").text(0);
+                }
+            }
+        });
+
+        //计算总价
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此查询购物车单列价钱获得总价，暂且手动输入1进行模拟
+            url: "http://localhost:8080/cart/getSumMoney",
+            type: "post",
+            datatype: "json",
+            data: {"usersId": accId},
+            success: function (data) {
+                var sum = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if ($(".checkbox").eq(i).prop('checked'))
+                        sum += data[i].cartPrice * data[i].cartCount;
+                }
+                $('em[name="sumPrice"]').html(sum + "￥");
+            }
+        });
+
+        //根据用户ID获得地址，填入配送INPUT，暂且手动输入1进行模拟
+        $.ajax({
+            url: "http://localhost:8080/cart/getAddress",
+            type: "post",
+            datatype: "json",
+            data: {"usersId": accId},
+            success: function (data) {
+                $(".option-addresss input").val(data);
+            }
+        });
+
+        //点击删除，从Cart中删除数据
+        var target = document.querySelector('.shop-list')
+        var eye2 = 0;
+        // 设定监听回调函数
+        var observer = new MutationObserver(function (mutations) {
+            //点击删除，同时移除购物车数据
+            if ($('.shop-list').children.length) {
+                eye2++;
+                if (eye2 > 1) {
+                    $.ajax({
+                        url: "http://localhost:8080/cart/delete",
+                        type: "post",
+                        datatype: "json",
+                        data: {"cartId": deleteP},
+                        success: function (data) {
+                            if (data != null) {
+                                alert("从购物车移除成功~");
+                            } else
+                                alert("Error");
+                        }
+                    })
+                }
+            }
+        });
+        observer.observe(target, {
+            childList: true,
+            attributes: true
+        });
+
+        //清空购物车
+        //手动输入用户ID进行模拟
+        $("#clearAll").click(function () {
+            $.ajax({
+                url: "http://localhost:8080/cart/clearAll",
+                type: "post",
+                datatype: "json",
+                data: {"usersId": accId},
+                success: function (data) {
+                    alert("清空购物车成功~");
+                }
+            });
+        })
+
+    });//$function结尾
+
+    //点击结算生成订单
+    var orderData = {"Insert": [{"orderId": 1, "usersId": accId, "orderAddress": "lundon", "orderPrice": 2550}]};
+    $(".price-tips").click(function () {
+        var price = parseFloat($('em[name="sumPrice"]').html());
+        $.ajax({
+            url: "http://localhost:8080/cart/getOrder",
+            type: "post",
+            datatype: "json",
+            // data:JSON.stringify(orderData),
+            //点击“去结算后”，根据用户ID生成订单，暂且手动输入1进行模拟
+            data: {"usersId": accId, "orderPrice": price},
+            success: function (data) {
+                if (data != null)
+                    alert("订单提交成功~");
+                else
+                    alert("Error");
+            }
+        });
+    })
+
+    //勾选复选框
+    function checkboxSum() {
+        var pre = 0;
+        if ($(".jdcheckbox").prop('checked')) {
+            for(var i = 0;i<vm.products.length;i++){
+                    pre+=parseFloat($(".p-sum strong").eq(i).text());
+            }
+            // $('em[name="sumPrice"]').html(0 + "￥");
+            $('em[name="sumPrice"]').html(pre + "￥");
+            $(".amount-sum-txt strong").text(vm.products.length);
+        } else {
+            var sum = 0;
+            for(var i = 0;i<vm.products.length;i++){
+                if ($(".checkbox").eq(i).attr('checked')) {
+                    pre+=parseFloat($(".p-sum strong").eq(i).text());
+                    sum++;
+                }
+            }
+            $('em[name="sumPrice"]').html(pre + "￥");
+            $(".amount-sum-txt strong").text(sum);
+        }
+    }
+
+    //点击搜索跳到搜索页面
+    $('input[value="搜索"]').click(function () {
+        location.href = "";
+    })
+
+    //点击登录跳到登录页面
+    $('#m_right_first').click(function () {
+        location.href = "";
+    })
+
+    if (!$(".shop-info")) {
+        $(".cart-empty").css("display", "block");
+    }
+
+</script>

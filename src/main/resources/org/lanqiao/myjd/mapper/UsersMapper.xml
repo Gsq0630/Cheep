@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.myjd.mapper.UsersMapper" >
+  <resultMap id="UsersResultMap" type="org.lanqiao.myjd.entity.Users" >
+    <id column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="users_realName" property="usersRealname" jdbcType="VARCHAR" />
+    <result column="users_cardid" property="usersCardid" jdbcType="VARCHAR" />
+    <result column="users_sex" property="usersSex" jdbcType="VARCHAR" />
+    <result column="users_address" property="usersAddress" jdbcType="VARCHAR" />
+    <result column="users_postid" property="usersPostid" jdbcType="INTEGER" />
+
+
+    <association property="account" resultMap="AccountResultMap"></association>
+
+  </resultMap>
+  <resultMap id="AccountResultMap" type="org.lanqiao.myjd.entity.Account" >
+    <id column="acc_id" property="accId" jdbcType="INTEGER" />
+    <result column="acc_name" property="accName" jdbcType="VARCHAR" />
+    <result column="acc_password" property="accPassword" jdbcType="VARCHAR" />
+    <result column="acc_createdate" property="accCreatedate" jdbcType="TIMESTAMP" />
+
+    <result column="users_id" property="usersId" jdbcType="INTEGER" />
+    <result column="acc_email" property="accEmail" jdbcType="VARCHAR" />
+    <result column="acc_phone" property="accPhone" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="selectUsersByCard" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from users where users_cardid = #{usersCardid}
+  </select>
+  <insert id="insertUsers" parameterType="org.lanqiao.myjd.entity.UsersVo" useGeneratedKeys="true" keyProperty="usersId">
+    insert into users(users_realName,users_cardid,users_sex,users_address,users_postid)
+    values (#{usersRealname},#{usersCardid},#{usersSex},#{usersAddress},#{usersPostid})
+  </insert>
+
+
+
+  <sql id="Users_Column_List" >
+    users_id, users_realName, users_cardid, users_sex, users_address, users_postid
+  </sql>
+
+<!--Author:Lzc -->
+  <select id="pagingQueryUsers" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select * from users limit #{offSet},10
+  </select>
+  <select id="getUsersCount" resultType="java.lang.Integer">
+    select count(*) from users
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    DELETE account,users from account LEFT JOIN users ON users.users_id = account.users_id WHERE users.users_id = #{usersId}
+  </delete>
+
+  <select id="selectByPrimaryKey" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Users_Column_List" />
+    from users
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="getAddress" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    users_address
+    from users
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </select>
+
+
+  <insert id="insert" parameterType="org.lanqiao.myjd.entity.Users" >
+    insert into users (users_id, users_realName, users_cardid,
+      users_sex, users_address, users_postid
+      )
+    values (#{usersId,jdbcType=INTEGER}, #{usersRealname,jdbcType=VARCHAR}, #{usersCardid,jdbcType=VARCHAR}, 
+      #{usersSex,jdbcType=VARCHAR}, #{usersAddress,jdbcType=VARCHAR}, #{usersPostid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.myjd.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usersId != null" >
+        users_id,
+      </if>
+      <if test="usersRealname != null" >
+        users_realName,
+      </if>
+      <if test="usersCardid != null" >
+        users_cardid,
+      </if>
+      <if test="usersSex != null" >
+        users_sex,
+      </if>
+      <if test="usersAddress != null" >
+        users_address,
+      </if>
+      <if test="usersPostid != null" >
+        users_postid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usersId != null" >
+        #{usersId,jdbcType=INTEGER},
+      </if>
+      <if test="usersRealname != null" >
+        #{usersRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="usersCardid != null" >
+        #{usersCardid,jdbcType=VARCHAR},
+      </if>
+      <if test="usersSex != null" >
+        #{usersSex,jdbcType=VARCHAR},
+      </if>
+      <if test="usersAddress != null" >
+        #{usersAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usersPostid != null" >
+        #{usersPostid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.myjd.entity.Users" >
+    update users
+    <set >
+      <if test="usersRealname != null" >
+        users_realName = #{usersRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="usersCardid != null" >
+        users_cardid = #{usersCardid,jdbcType=VARCHAR},
+      </if>
+      <if test="usersSex != null" >
+        users_sex = #{usersSex,jdbcType=VARCHAR},
+      </if>
+      <if test="usersAddress != null" >
+        users_address = #{usersAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usersPostid != null" >
+        users_postid = #{usersPostid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.myjd.entity.Users" >
+    update users
+    set users_realName = #{usersRealname,jdbcType=VARCHAR},
+      users_cardid = #{usersCardid,jdbcType=VARCHAR},
+      users_sex = #{usersSex,jdbcType=VARCHAR},
+      users_address = #{usersAddress,jdbcType=VARCHAR},
+      users_postid = #{usersPostid,jdbcType=INTEGER}
+    where users_id = #{usersId,jdbcType=INTEGER}
+  </update>
+</mapper>

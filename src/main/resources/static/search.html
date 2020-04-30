@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <link href="css/jd-order.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+
+            var accId = $.cookie('accId');
+            if(accId === undefined){
+                location.href = "login.html";
+            }
+
+
+
+
+
+            var bigBox = new Vue({
+                el:"#bigBox",
+                data:{
+                    proSum:0,
+                    pageCount:5,
+                    keyWord:'',
+                    pageSize:5,
+                    pageNum:1,
+                    lowPrice:"",
+                    highPrice:"",
+                    toSort:'',
+                    result:[],
+                    bigClass:[],
+                    smallClass:[],
+                    bcName:'',
+                    itme:'电脑',
+                    smallPageSize:6,
+                    smallPageNum:1,
+                    newKeyWord:''
+                },
+                methods:{
+                    //获取查询结果
+                    toSubmit:function () {
+                        //搜索结果数据清空
+                        bigBox.result=[];
+                        //ajax获取pageCount
+                        $.ajax({
+                           url:"http://localhost:8080/search/getPageCount",
+                           type:"post",
+                           data:{
+                               'keyWord':bigBox.keyWord,
+                               'lowPrice':(bigBox.lowPrice == "" ? 0 : bigBox.lowPrice),
+                               'highPrice':(bigBox.highPrice == "" ? 0 : bigBox.highPrice)
+                           },
+                           datatype:"json",
+                           success:function (data) {
+                               bigBox.proSum = data;
+                               bigBox.pageCount = Math.ceil(data/bigBox.pageSize);
+                           },
+                            error:function (data) {
+                                alert(data)
+                            }
+                        });
+
+
+                        //ajax获取商品搜索内容
+                        $.ajax({
+                            url:"http://localhost:8080/search/getPro",
+                            type:"post",
+                            data:{
+                                'keyWord':bigBox.keyWord,
+                                'pageSize':bigBox.pageSize,
+                                'pageNum':bigBox.pageNum,
+                                'lowPrice':(bigBox.lowPrice == "" ? 0 : bigBox.lowPrice),
+                                'highPrice':(bigBox.highPrice == "" ? 0 : bigBox.highPrice),
+                                'sort':bigBox.toSort,
+                                'newKeyWord':bigBox.newKeyWord
+                            },
+                            datatype:"json",
+                            success:function (data) {
+                                for (var i = 0; i<data.length;i++){
+                                    bigBox.result.push({
+                                        proId:data[i].proId,
+                                        proBclassId:data[i].proBclassId,
+                                        proSclassId:data[i].proSclassId,
+                                        proName:data[i].proName,
+                                        proPrice:data[i].proPrice,
+                                        proCount:data[i].proCount,
+                                        proWords:data[i].proWords,
+                                        proDate:data[i].proDate,
+                                        proUrl:data[i].productPic.picUrl
+                                    });
+                                }
+                            },
+                            error:function (data) {
+                                alert(data)
+                            }
+                        });
+
+                        //ajax获取所有大类
+                        $.ajax({
+                            url:"http://localhost:8080/search/getAllBigClass",
+                            type:"post",
+                            datatype:"json",
+                            success:function (data) {
+                                bigBox.bigClass=[];
+                                for (var i = 0; i<data.length;i++){
+                                    bigBox.bigClass.push({
+                                        bclassId:data[i].bclassId,
+                                        bclassName:data[i].bclassName
+                                    })
+                                }
+
+                            }
+                        });
+
+                        //ajax获取所有小类
+                        $.ajax({
+                            url:"http://localhost:8080/search/getAllSmallClass",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                'keyWord':bigBox.keyWord,
+                                'smallPageSize':bigBox.smallPageSize,
+                                'smallPageNum':bigBox.smallPageNum
+                            },
+                            success:function (data) {
+                                bigBox.smallClass=[];
+                                for (var i = 0; i<data.length;i++){
+                                    bigBox.smallClass.push({
+                                        sclassId:data[i].sclassId,
+                                        sclassName:data[i].sclassName,
+                                        bclassId:data[i].bclassId
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    //添加商品进购物车
+                    inputCart:function(){
+                        var el = event.currentTarget;
+                        $.ajax({
+                            url:"http://localhost:8080/search/inputCart",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                usersId:accId,
+                                productId:parseInt(el.children[1].innerHTML),
+                                cartCount:1,
+                                cartPrice:parseFloat(el.children[2].innerHTML)
+                            },
+                            success:function () {
+                                alert("添加成功。")
+                            }
+                        })
+                    },
+                    sortId:function(){
+                      bigBox.toSort = "";
+                      bigBox.toSubmit();
+                    },
+                    sortTime:function () {
+                        if(bigBox.toSort=="pro_date DESC"){
+                            bigBox.toSort = "";
+                            bigBox.toSubmit();
+                        }else{
+                            bigBox.toSort = "pro_date DESC";
+                            bigBox.toSubmit();
+                        }
+
+                    },
+                    sortPrice:function () {
+                        if(bigBox.toSort=="pro_price desc"){
+                            bigBox.toSort = "";
+                            bigBox.toSubmit();
+                        }else{
+                            bigBox.toSort = "pro_price desc";
+                            bigBox.toSubmit();
+                        }
+                    },
+                    pageNumDown:function () {
+                        if (this.pageNum>1){
+                            this.pageNum--;
+                            bigBox.toSubmit();
+                        }
+
+                    },
+                    pageNumUp:function () {
+                        if(this.pageNum<this.pageCount){
+                            this.pageNum++;
+                            bigBox.toSubmit();
+                        }
+                    },
+                    keyBySmallClass:function () {
+                        var el = event.currentTarget;
+                        this.keyWord = el.innerHTML;
+                        bigBox.toSubmit();
+                    },
+                    keyByClass:function () {
+                        var el = event.currentTarget;
+                        this.keyWord = el.innerHTML;
+                        bigBox.toSubmit();
+                    },
+                    getMore:function () {
+                        this.smallPageNum = 0;
+                        bigBox.toSubmit();
+                    },
+                    searchInResult:function () {
+                        var el = event.currentTarget;
+                        this.newKeyWord=el.previousElementSibling.value;
+                        bigBox.toSubmit();
+                        this.newKeyWord='';
+                        el.previousElementSibling.value='';
+                    }
+                }
+            });
+
+
+            var keyWord=sessionStorage.getItem("keyWord");
+            sessionStorage.removeItem("keyWord");
+            if (keyWord != null){
+                bigBox.keyWord = keyWord;
+            }
+
+            bigBox.toSubmit();
+
+
+
+            //排序方式的class控制
+            var time = 1;var price= 1;
+            $("a:contains('新品')").click(function () {
+                if (time == 1){
+                    $(this).attr("class","r_sort_a");
+                    $(this).siblings().attr("class","r_sort_a2");
+                    time = 0;
+                }else{
+                    $(this).attr("class","r_sort_a2");
+                    $(this).siblings().eq(0).attr("class","r_sort_a");
+                    time =1;
+                }
+                price = 1;
+            });
+            $("a:contains('价格')").click(function () {
+                if (price == 1){
+                    $(this).attr("class","r_sort_a");
+                    $(this).siblings().attr("class","r_sort_a2");
+                    price = 0;
+                }else{
+                    $(this).attr("class","r_sort_a2");
+                    $(this).siblings().eq(0).attr("class","r_sort_a");
+                    price =1;
+                }
+                time = 1;
+            });
+            $("a:contains('综合')").click(function () {
+                $(this).attr("class","r_sort_a");
+                $(this).siblings().attr("class","r_sort_a2");
+                price =1;
+                time =1;
+            });
+
+
+        })
+    </script>
+</head>
+<body>
+<div id="body_left">
+    <div id="b_l_ico">
+        <div class="b_l_i_q">
+            <i class="tab-ico"></i>
+        </div>
+        <div class="b_l_i_q"></div>
+        <div class="b_l_i_q"></div>
+        <div class="b_l_i_q"></div>
+    </div>
+
+</div>
+<div id="shortcut">
+    <div id="w">
+        <div id="menu">
+            <div class="dwei">
+                <ul>
+                    <li><i class="iconfont"></i>
+                        福建
+                    </li>
+                    <li><i class="iconfont"></i>
+                        <a>京东首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="menu_div">
+                <ul class="menuul">
+                    <li class="menuli"><a>手机京东</a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a>网站导航</a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a>客户服务</a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a class="red">企业采购<i class="iconfont"></i></a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a>京东会员</a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a>我的京东<i class="iconfont"></i></a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a>我的订单</a></li>
+                    <li class="spacer"></li>
+                    <li class="menuli"><a href="login.html">你好，请登录</a>
+                        <a class="red">免费注册</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="bigBox">
+    <div id="start">
+        <div id="logo_1">
+            <a id="logo_a"></a>
+        </div>
+        <div id="search_2019">
+            <input type="text" id="key" v-model="keyWord">
+            <button id="button" @click="toSubmit">搜索</button>
+        </div>
+        <div class="cw-icon">
+            <a id="a-icon" href="Cart.html">我的购物车</a>
+            <i class="iconfont red"></i>
+            <i class="ci-count" id="shopping-amount">0</i>
+        </div>
+        <div id="menu_start">
+            <ul class="menuul" v-for="bc in bigClass">
+                <li class="menuli"><a @click="keyByClass">{{bc.bclassName}}</a><i style="display: none">{{bc.bclassId}}</i></li>
+                <li class="sp_start"></li>
+            </ul>
+
+
+        </div>
+    </div>
+    <div id="nav-2019">
+        <div id="dt">
+            <a id="dt_a">全部商品分类</a>
+        </div>
+        <div id="nav-2019_ul">
+            <ul>
+                <li class="dt_nav_li"><a>京东时尚</a></li>
+                <li class="dt_nav_li"><a>美妆馆</a></li>
+                <li class="dt_nav_li"><a>超市</a></li>
+                <li class="dt_nav_li"><a>生鲜</a></li>
+                <li class="dt_nav_li"><a>海囤全球</a></li>
+                <li class="dt_nav_li"><a>闪购</a></li>
+                <li class="dt_nav_li"><a>拍卖</a></li>
+                <li class="dt_nav_li"><a>金融</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+    <div id="j_searchWrap">
+        <div id="j_crumbs">
+            <div class="j_nav_item">
+                <a>全部结果</a>
+            </div>
+            <i class="crumbs-arrow">&gt;</i>
+            <div class="j_nav_item"><strong class="j_strong">{{keyWord}}</strong></div>
+
+        </div>
+        <div id="j_container">
+            <div id="j_selector">
+                <div id="s_brand" class="son_sel">
+                    <div class="s1_key"><strong>品牌:</strong></div>
+                    <div class="s1_right">
+                        <div class="s1_value">
+                            <div class="s1_v_logo">
+                                <ul id="s1_logo_ul">
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="s1_ext">
+                            <a class="s1_ext_a">更多</a>
+                            <a class="s1_ext_a">多选</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="s1_warp">
+                    <div class="s1_key s1_box">商品分类：</div>
+                    <div class="s1_warp_2">
+                        <ul class="s1_warp_ul">
+                            <li class="s1_warp_li" v-for="bc in bigClass"><a @click="keyByClass">{{bc.bclassName}}</a><i style="display: none">{{bc.bclassId}}</i></li>
+                        </ul>
+                    </div>
+                    <div class="s1_warp_gg">
+                        <a class="s1_ext_a s1_warp_gg_a">更多</a>
+                    </div>
+                </div>
+                <div class="s1_warp" >
+                    <div class="s1_key s1_box">商品分类的分类：</div>
+                    <div class="s1_warp_2">
+                        <ul class="s1_warp_ul">
+                            <li class="s1_warp_li" v-for="sc in smallClass"><a @click="keyBySmallClass">{{sc.sclassName}}</a><i style="display: none">{{sc.sclassId}}</i><i style="display: none">{{sc.sclassId}}</i></li>
+                        </ul>
+                    </div>
+                    <div class="s1_warp_gg">
+                        <a class="s1_ext_a s1_warp_gg_a" @click="getMore">更多</a>
+                    </div>
+                </div>
+            </div>
+            <div id="j_main">
+                <div id="j_main_left">
+                    <div class="mt"><h3>商品精选</h3></div>
+                    <div class="img"><img src="images/guanggao.jpg" height="160"></div>
+                    <div class="p_price">
+                        <strong><em>¥</em><i class="J-prom-p-7108222">3799.00</i></strong>
+                    </div>
+                    <div class="p_name">
+                        <em>戴尔(DELL)成就3470 英特尔酷睿i5 高性能 商用办公</em>
+                    </div>
+                    <div class="p_comm">以有
+                        <span style="color: #005aa0">4万+</span>
+                        人评论
+                    </div>
+
+                    <div class="img"><img src="images/guanggao.jpg" height="160"></div>
+                    <div class="p_price">
+                        <strong><em>¥</em><i class="J-prom-p-7108222">3799.00</i></strong>
+                    </div>
+                    <div class="p_name">
+                        <em>戴尔(DELL)成就3470 英特尔酷睿i5 高性能 商用办公</em>
+                    </div>
+                    <div class="p_comm">以有
+                        <span style="color: #005aa0">4万+</span>
+                        人评论
+                    </div>
+
+                    <div class="img"><img src="images/guanggao.jpg" height="160"></div>
+                    <div class="p_price">
+                        <strong><em>¥</em><i class="J-prom-p-7108222">3799.00</i></strong>
+                    </div>
+                    <div class="p_name">
+                        <em>戴尔(DELL)成就3470 英特尔酷睿i5 高性能 商用办公</em>
+                    </div>
+                    <div class="p_comm">以有
+                        <span style="color: #005aa0">4万+</span>
+                        人评论
+                    </div>
+
+
+                </div>
+                <div id="j_main_right">
+                    <div class="r_line_top">
+                        <div class="r_sort">
+                            <a class="r_sort_a" @click="sortId">综合<i>▽</i></a>
+                            <a class="r_sort_a2">销量<i>▽</i></a>
+                            <a class="r_sort_a2">评论数<i>▽</i></a>
+                            <a class="r_sort_a2" @click="sortTime">新品<i>▽</i></a>
+                            <a class="r_sort_a2" @click="sortPrice">价格<i>▽</i></a>
+                        </div>
+                        <div class="r_datagrid">
+                            <a class="r_datagrid_a">
+                                <span class="def_bar" style="height: 25%"></span>
+                            </a>
+                            <a class="r_datagrid_a">
+                                <span class="def_bar" style="height: 55%"></span>
+                            </a>
+                            <a class="r_datagrid_a">
+                                <span class="def_bar" style="height: 85%"></span>
+                            </a>
+                            <a class="r_datagrid_a">
+                                <span class="def_bar" style="height: 30%"></span>
+                            </a>
+                            <a class="r_datagrid_a">
+                                <span class="def_bar" style="height: 10%"></span>
+                            </a>
+                        </div>
+                        <div class="r_fl">
+                            <div class="r_f1_f">
+                                <input type="text" v-model="lowPrice" class="input_price">
+                            </div>
+                            <em>-</em>
+                            <div class="r_f1_f">
+                                <input type="text" v-model="highPrice" class="input_price">
+                            </div>
+                        </div>
+
+                        <div class="r_topPage">
+                                <span class="r_top_text">
+                                    <b>{{pageNum}}</b>
+                                    <em>/</em>
+                                    <i>{{pageCount}}</i>
+                                </span>
+                            <a :class="pageNum == 1 ? 'r_top_a' : 'a_2'" @click="pageNumDown" ><</a>
+                            <a :class="pageNum == pageCount ? 'r_top_a' : 'a_2'" @click="pageNumUp" >></a>
+
+                        </div>
+                        <div class="p_comm" id="r_comm">共
+                            <span style="color: #005aa0">{{proSum}}</span>
+                            件商品
+                        </div>
+                    </div>
+                    <div class="r_line_top">
+                        <div class="f_store">
+                            <div class="f_s_1">配送至</div>
+                            <div class="f_S_2">
+                                <div class="fs2_1">
+                                    <div class="fs2_text">福建福州市长乐区文武砂镇</div>
+                                    <div class="fs_2_san">▼</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="j_feature">
+                            <ul>
+                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
+                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
+                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
+                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
+                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
+                            </ul>
+                        </div>
+                        <div class="j_search">
+                            <input type="text" value="在结果中搜索" class="input-txt"
+                                   onfocus="if(this.value=='在结果中搜索'){this.value=''}"
+                                   onblur="if (this.value==''){this.value='在结果中搜索'}">
+                            <a class="j_search_a" @click="searchInResult">确定</a>
+                        </div>
+                    </div>
+                    <div class="r_good_list">
+                        <ul class="r_gl_ul">
+                            <li class="r_gl_li" v-for="res in result">
+                                <div class="r_gll_div">
+                                    <div class="r_img"><img :src="res.proUrl" height="220"></div>
+                                    <div class="r_price">
+                                        <em>¥</em><i class="r_price_j">{{res.proPrice}}</i>
+                                    </div>
+                                    <div class="r_name">
+                                        <em>{{res.proName}}&nbsp;<font class="skcolor_ljg">{{res.proWords}}</font></em>
+                                    </div>
+                                    <div class="r_comm">
+                                        <span style="color: #005aa0; font-weight: bold">6万+</span>条评价
+                                    </div>
+                                    <div class="r_shopName">
+                                            <span class="r_sName_span">
+                                                <a><p>戴尔京东自营旗舰店 </p><b class="r_shop_kefu"></b></a>
+                                            </span>
+                                    </div>
+                                    <div class="r_icon">
+                                        <i>自营</i>
+                                    </div>
+                                    <div class="r_operate">
+                                        <a class="r_op_a1">
+                                            <i>□ </i>对比
+                                        </a>
+                                        <a class="r_op_a1">
+                                            <i>♡ </i>关注
+                                        </a>
+                                        <a class="r_op_a1" @click="inputCart">
+                                            <i>☺</i>加入购物车
+                                            <i style="display: none">{{res.proId}}</i>
+                                            <i style="display: none">{{res.proPrice}}</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="j_page">
+                        <div class="j_bottomPage">
+                                <span style="float: left">
+                                    <a @click="pageNumDown" :class="pageNum === 1 ? 'last' : 'j_bP_a'"> 上一页 </a>
+                                    <ul style=" height: 36px; float: left">
+                                      <li v-for="n in pageCount" style="float: left">
+                                          <a :class="pageNum === n ? 'one' : 'j_bP_a'">{{ n }}</a>
+                                      </li>
+                                    </ul>
+                                    <a class="j_bP_a" @click="pageNumUp">下一页></a>
+                                </span>
+                            <span style="float: left; margin-left: 20px">
+                                    <em class="foot_em">
+                                        共  <b class="bold_b">{{pageCount}}</b>
+                                        页&nbsp;&nbsp;到第
+                                    </em>
+                                    <input type="text" class="foot_input" v-model="pageNum">
+                                    <em class="foot_em">页</em>
+                                    <a class="j_bP_a" id="foot_button" @click="toSubmit">确定</a>
+                                </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/backstage.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+
+            $(".anniu2").hide();
+            $(".sea2").hide();
+
+            var sClass = new Vue({
+                el:"#sClass",
+                data:{
+                    pageCount:'',
+                    smallPageSize:6,
+                    smallPageNum:1,
+                    className:'',
+                    smallClass:[],
+                    keyWord:''
+                },
+                methods:{
+                    toSelectSmall:function () {
+                        sClass.smallClass=[];
+                        sClass.className = '小类';
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/search/smallclass",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                smallPageSize:sClass.smallPageSize,
+                                smallPageNum:sClass.smallPageNum,
+                                keyWord:sClass.keyWord
+                            },
+                            success:function (data) {
+                                for (var i = 0 ; i <data.length; i++){
+                                    sClass.smallClass.push({
+                                        scId:i+1,
+                                        scName:data[i].sclassName,
+                                        bcName:data[i].bclassName,
+                                        scWord:'小类',
+                                        scTrueId:data[i].sclassId
+                                    })
+                                }
+                            }
+                        });
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/search/smallclassCount",
+                            type:"post",
+                            datatype:"json",
+                            success:function (data) {
+                                sClass.pageCount = Math.ceil(data/sClass.smallPageSize);
+                            }
+                        });
+                        sClass.keyWord = '';
+                    },
+                    pageUp:function () {
+                        if (this.smallPageNum < this.pageCount){
+                            this.smallPageNum++;
+                            if(sClass.className == '小类'){
+                                sClass.toSelectSmall();
+                            }else {
+                                sClass.toSelectBig();
+                            }
+                        }
+                    },
+                    pageDown:function () {
+                        if(this.smallPageNum > 1 ){
+                            this.smallPageNum--;
+                            if(sClass.className == '小类'){
+                                sClass.toSelectSmall();
+                            }else {
+                                sClass.toSelectBig();
+                            }
+                        }
+                    },
+
+                    toSelectBig:function () {
+                        sClass.smallClass=[];
+                        sClass.className = '大类';
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/search/bigclass",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                smallPageSize:sClass.smallPageSize,
+                                smallPageNum:sClass.smallPageNum,
+                                keyWord:sClass.keyWord
+                            },
+                            success:function (data) {
+                                for (var i = 0 ; i <data.length; i++){
+                                    sClass.smallClass.push({
+                                        scId:i+1,
+                                        scName:data[i].bclassName,
+                                        bcName:'无',
+                                        scWord:'大类',
+                                        scTrueId:data[i].bclassId
+                                    })
+                                }
+                            }
+                        });
+                        $.ajax({
+                            url:"http://localhost:8080/backstage/search/bigclassCount",
+                            type:"post",
+                            datatype:"json",
+                            success:function (data) {
+                                sClass.pageCount = Math.ceil(data/sClass.smallPageSize);
+                            }
+                        }),
+                        sClass.keyWord = '';
+                    },
+
+                    toDelete:function () {
+                        var el = event.currentTarget;
+                        alert("是否删除该类？");
+                        $.ajax({
+                            url:sClass.className == '小类' ? "http://localhost:8080/backstage/deleteSmall" : "http://localhost:8080/backstage/deleteBig",
+                            type:"post",
+                            data:{
+                              deleteId:el.nextSibling.textContent
+                            },
+                            datetype:"json",
+                            success:function () {
+                                alert("删除成功");
+                                if (sClass.className == '小类'){
+                                    sClass.toSelectSmall();
+                                }else{
+                                    sClass.toSelectBig();
+                                }
+                            },
+                            error:function () {
+                                alert("删除失败，请确认该类下是否还有所属小类或商品")
+                            }
+
+                        })
+                    },
+                    changeClass:function (index) {
+                            sessionStorage.setItem("className",this.className);
+                            sessionStorage.setItem("classId",this.smallClass[index].scTrueId);
+                            window.location.href="backstageUpdateClass.html";
+                    }
+                }
+
+
+            });
+
+            $("a:contains('小类')").click(function () {
+                $(".anniu2").hide();
+                $(".anniu1").show();
+                $(".sea2").hide();
+                $(".sea1").show();
+            });
+            $("a:contains('大类')").click(function () {
+                $(".anniu1").hide();
+                $(".anniu2").show();
+                $(".sea1").hide();
+                $(".sea2").show();
+            })
+
+
+        })
+    </script>
+
+</head>
+<body>
+<div class="iframe" id="sClass">
+    <ul class="breadcrumb">
+        <li><a href="#" >首页</a></li>
+        <li><a href="#">商品种类管理</a></li>
+        <li><a href="#">商品种类查询</a></li>
+    </ul>
+
+    <div class="xiaLa">
+        <div class="dropdown">
+            <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                请选择查询类别：
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" @click="toSelectBig">大类</a></li>
+                <li><a href="#" @click="toSelectSmall">小类</a></li>
+            </ul>
+        </div>
+        <div style="float: left; padding-right: 150px">
+            <i>所选类别：</i><i>{{className}}</i><br>
+            <i>共：</i><i>{{pageCount}}</i><i>页</i>
+        </div>
+        <div class="class_search sea1">
+            <div class="input-group">
+            <input type="text" class="form-control" v-model="keyWord"/>
+            <span class="input-group-btn"><input type="button" name="search" value="搜索" class="btn btn-primary" @click="toSelectSmall"/>
+			</span>
+        </div>
+    </div>
+        <div class="class_search sea2">
+            <div class="input-group">
+                <input type="text" class="form-control" v-model="keyWord"/>
+                <span class="input-group-btn"><input type="button" name="search" value="搜索" class="btn btn-primary" @click="toSelectBig"/>
+			</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="text-center biao">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr class="tableHead">
+                <th>种类编号</th>
+                <th>种类名称</th>
+                <th>种类描述</th>
+                <th>所属大类</th>
+                <th>修改</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(sc, index) in smallClass">
+                <td>{{sc.scId}}</td>
+                <td>{{sc.scName}}</td>
+                <td>{{sc.scWord}}</td>
+                <td>{{sc.bcName}}</td>
+                <td><a href="#" class="btn btn-success" style="padding: 0" @click="changeClass(index)">修改</a></td>
+                <td><a href="#" class="btn btn-danger" style="padding: 0" @click="toDelete">删除</a><i style="display: none">{{sc.scTrueId}}</i></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="input-group anniu1">
+        <span class="input-group-btn"><input type="button" name="search" value="上一页" class="btn btn-default" @click="pageDown"/>
+			</span>
+        <input type="text" class="form-control" v-model="smallPageNum" style="text-align: center"/>
+        <span class="input-group-btn"><input type="button" name="search" value="下一页" class="btn btn-default" @click="pageUp"/>
+			</span>
+    </div>
+    <div class="input-group anniu2">
+        <span class="input-group-btn"><input type="button" name="search" value="上一页" class="btn btn-default" @click="pageDown"/>
+			</span>
+        <input type="text" class="form-control" v-model="smallPageNum" style="text-align: center"/>
+        <span class="input-group-btn"><input type="button" name="search" value="下一页" class="btn btn-default" @click="pageUp"/>
+			</span>
+    </div>
+</div>
+
+</body>
+</html>

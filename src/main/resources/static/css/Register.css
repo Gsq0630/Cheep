@@ -1,0 +1,421 @@
+/*头部*/
+#header {
+    font-size: 14px;
+    color: #666666;
+    width: 100%;
+    height: 110px;
+    background: url("../images/register/headbg.jpg") repeat-x left bottom;
+}
+
+/*内嵌div*/
+#header_inner {
+    width: 1200px;
+    height: 76px;
+    margin: 0 155px;
+    font-size: 14px;
+}
+
+#reg_logo {
+    width: 160px;
+    height: 50px;
+    float: left;
+    margin-top: 24px;
+    background-image: url("../images/register/icon.png");
+}
+
+.reg_title {
+    float: left;
+    width: 96px;
+    height: 34px;
+    color: #333333;
+    font-size: 24px;
+    margin: 34px 0 0;
+}
+
+.havecount {
+    float: right;
+    width: 145px;
+    height: 21px;
+    color: #999999;
+    font-size: 16px;
+    margin-top: 55px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.tologin {
+    width: 60px;
+    height: 19px;
+    color: #EE2222;
+    text-decoration: none;
+}
+
+/*中间部分*/
+#reg_main {
+    width: 1210px;
+    margin: 0 155px;
+}
+#process_bar {
+    position: relative;
+    width: 400px;
+    height: 55px;
+    margin: 80px 405px 0;
+    color: #666666;
+    font-size: 14px;
+}
+
+.step {
+    float: left;
+    text-align: center;
+    width: 60px;
+    height: 55px;
+}
+
+#stepcount {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0 18px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    background-image: url("../images/register/reg-icon.png");
+    /*不一样的*/
+    background-position: 0 -200px;
+}
+
+#checktel {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #33BB44;
+}
+
+#process_bar .line1 {
+    float: left;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 47px;
+    background-image: url("../images/register/reg-icon.png");
+    width: 124px;
+    height: 10px;
+    background-position: 0 -100px;
+}
+
+#process_bar .line2 {
+    width: 124px;
+    height: 10px;
+    left: 223px;
+    background-position: 0 -100px;
+}
+
+.two {
+    float: left;
+    margin-left: 105px;
+    font-size: 12px;
+    width: 72px;
+}
+
+#stepcount2 {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0 24px;
+    color: #CCCCCC;
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    background-image: url("../images/register/reg-icon.png");
+    background-position: -45px -200px;
+}
+
+#accountinfo {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+
+.three {
+    float: left;
+    margin-left: 103px;
+    font-size: 12px;
+}
+
+#stepcount3 {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0 18px;
+    color: #CCCCCC;
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    background-image: url("../images/register/reg-icon.png");
+    background-position: -45px -200px;
+}
+
+#over {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+/*中间部分 1*/
+#main_info{
+    margin: 50px auto 186px;
+    width: 400px;
+}
+#tel_input {
+    width: 400px;
+    height: 86px;
+}
+#tel_input select {
+    width: 110px;
+    height: 54px;
+    border: 1px solid rgb(221, 221, 221);
+    float: left;
+}
+#phone_div{
+    margin-left: 110px;
+    width: 290px;
+    height: 52px;
+    border: 1px solid rgb(221, 221, 221);
+}
+#phone_div input{
+    border: 0 none;
+    font-size: 14px;
+    width: 250px;
+    height: 19px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+    padding-top: 16px;
+    color: #CCCCCC;
+}
+input::-webkit-input-placeholder{
+    color:#CCCCCC;
+}
+/*验证*/
+#tel_button{
+    width: 400px;
+    height: 86px;
+}
+#checked{
+    line-height: 52px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    width: 400px;
+    height: 54px;
+    border: 1px solid rgb(221, 221, 221);
+}
+/*注册按钮*/
+#tel_next{
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    color: #fff;
+    background: #e2231a;
+    border: 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+/*中间部分 2*/
+#second_form{
+    display: none   ;
+}
+.success{
+    color: #33BB44;
+}
+.error {
+    color: red
+}
+#error_name{
+    width: 400px;
+    height: 22px;
+}
+.form_item{
+    height: 54px;
+    color: #666666;
+    border: solid 1px #ddd;
+    border-color: rgb(153, 153, 153);
+}
+/*#loginname{*/
+/*    height: 70px;*/
+/*}*/
+.form_item label{
+    float: left;
+    width: 87px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 20px;
+    font-size: 14px;
+}
+.form_item input{
+    color: #666666;
+    outline: 0;
+    border: 0 none;
+    font-size: 14px;
+    width: 150px;
+    height: 19px;
+    padding-bottom: 11px;
+    padding-left: 20px;
+    padding-top: 16px;
+}
+.form_item input::-webkit-input-placeholder{
+    color: #999999;
+}
+
+.input_tip{
+    margin-top: 8px;
+    height: 22px;
+    color: #C5C5C5;
+}
+.input_tip span i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    margin-right: 8px;
+}
+.input_tip .i-def {
+    background-image: url("../images/register/icon.png");
+    background-repeat: no-repeat;
+    background-position: 0 -100px;
+}
+.form_button{
+    height: 54px;
+    background-color: #c81623;
+}
+
+#reg_pwd{
+    width: 210px;
+}
+#reg_button{
+    outline: 0;
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    color: #fff;
+    background: #e2231a;
+    border: 0;
+    font-size: 16px;
+    cursor: pointer
+}
+/*其他注册*/
+#reg_other{
+    width: 400px;
+    height: 28px;
+    margin-top:28px ;
+}
+.reg-ohter-icon{
+    display: inline-block;
+    margin: 0 8px 2px 0;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    background-image: url("../images/register/reg-icon.png");
+    background-position: 0 -160px;
+}
+.haiwai{
+    background-position: -40px -160px;
+}
+#reg_haiwai{
+    float: right;
+}
+/*注册完成*/
+#reg_over{
+    width: 810px;
+    height: 220px;
+    margin: 50px 350px 0 ;
+    display: none;
+}
+
+#success_msg{
+    height: 205px;
+    margin: 0 0 30px;
+}
+#success_msg .success_tag{
+    margin: 60px auto 10px;
+    display: block;
+    height: 56px;
+    width: 56px;
+    background: url("../images/register/icon-complete.png") no-repeat;
+}
+#success_msg .mt{
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+    line-height: 40px;
+}
+#success_msg .mm{
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+    line-height: 26px;
+}
+#success_msg .mm_tip{
+    font-size: 12px;
+}
+#go_continue{
+    height: 54px;
+    margin: 20px 0 20px;
+    text-align: center;
+}
+#btn{
+        width: 160px;
+        height: 52px;
+        outline: 0;
+        border: 1px solid #ee2223;
+        background: #ee2223;
+        font-size: 19px;
+        color: #fefefe;
+}
+#abtn{
+    display: inline;
+    line-height: 52px;
+    width: 160px;
+    height: 54px;
+    color: #fefefe;
+}
+/*#btn{*/
+/*    width: 160px;*/
+/*    height: 52px;*/
+/*    text-align: center;*/
+/*    padding: 0 25px;*/
+/*    border: 1px solid #ee2223;*/
+/*    background: #ee2223;*/
+/*    font-size: 19px;*/
+/*    color: #fefefe;*/
+/*    outline: 0;*/
+/*    !*transition: all .5s;*!*/
+/*    font-weight: 700;*/
+/*}*/
+/*底部*/
+#reg_foot{
+    font-size: 12px;
+    text-align: center;
+    border-top: solid 1px #e6e6e6;
+    color: #999;
+    padding-bottom: 30px;
+    width: 1210px;
+    margin: 170px 155px 0 155px;
+}
+#links{
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+#links a{
+    font-size: 12px;
+    text-align: center;
+    color: #999;
+    margin: 0 10px;
+}

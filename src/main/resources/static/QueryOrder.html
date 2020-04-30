@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/houtai-xdf.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div class="iframe" id="myView">
+    <ul class="breadcrumb">
+        <li><a href="backstage.html">首页</a></li>
+        <li><a href="#">订单管理</a></li>
+        <li><a href="#">查询订单</a></li>
+    </ul>
+    <input type="text" class="submit " style="margin-left: 10%">
+    <button id="getBtn" type="button" style="margin-left: 4%" class="btn btn-success" @click="getOrderById()">根据用户ID查询
+    </button>
+    <div class="text-center biao">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr class="tableHead">
+                <th>订单ID</th>
+                <th>用户ID</th>
+                <th>配送地址</th>
+                <th>订单总价</th>
+                <th>订单日期</th>
+                <th>订单状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="order in orderList" class="orderlist">
+                <td>{{order.orderId}}</td>
+                <td>{{order.usersId}}</td>
+                <td>{{order.orderAddress}}</td>
+                <td>{{order.orderPrice}}</td>
+                <td>{{order.orderDate}}</td>
+                <td>{{order.orderState}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="input-group" style="width:180px;margin:0 auto;">
+        <span class="input-group-btn" v-model="currPage">
+            <input type="button" name="search" value="上一页" class="btn btn-default"/>
+        </span>
+        <input type="text" class="form-control" style="text-align: center" v-model="currPage"
+               :change="getOrder(currPage)">
+        <span class="input-group-btn">
+            <input type="button" name="search" value="下一页" class="btn btn-default"/>
+        </span>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var vm = new Vue({
+        el: "#myView",
+        data: {
+            orderList: [],
+            currPage: "1"
+        },
+        methods: {
+            //获得订单列表
+            getOrder: function (currPage) {
+                $.ajax({
+                    url: "http://localhost:8080/backend/pagingQueryOrder",
+                    type: "post",
+                    dataType: "json",
+                    data: {"currPage": currPage},
+                    success: function (data) {
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                vm.orderList.push(data[i]);
+                            }
+                        } else {
+                            alert("表中无记录");
+                        }
+                    }
+                })
+            },
+            //根据用户ID获得订单
+            getOrderById: function () {
+                $.ajax({
+                    url: "http://localhost:8080/backend/getOrderById",
+                    type: "post",
+                    dataType: "json",
+                    data: {"usersId": $(".submit").val()},
+                    success: function (data) {
+                        if (data.length > 0) {
+                            vm.orderList = [];
+                            for (var i = 0; i < data.length; i++) {
+                                vm.orderList.push(data[i]);
+                            }
+                        } else {
+                            alert("无记录");
+                        }
+                    }
+                })
+            }
+        }
+    })
+</script>

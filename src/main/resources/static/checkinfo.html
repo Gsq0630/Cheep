@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>身份验证</title>
+    <link rel="stylesheet" href="CSS/base.css">
+    <link rel="stylesheet" href="CSS/checkinfo.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.validate.regex.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+<!--    <script src="js/check.js"></script>-->
+    <script>
+        $(function () {
+            var id = $.cookie('accId');
+            if(id === undefined){
+                location.href = "login.html";
+            }
+        })
+
+    </script>
+    <script src="js/vue.js"></script>
+
+    <script src="js/checkinfo.js"></script>
+</head>
+<body>
+<div id="header">
+    <div id="header_inner">
+        <a id="chk_logo"></a>
+        <div class="chk_title">完善身份信息</div>
+        <div class="havecount">已完成？
+            <a class="tologin">回首页></a>
+        </div>
+    </div>
+</div>
+<div id="chk_main">
+    <div id="chk_form">
+        <form id="info_form">
+            <div class="form_item">
+                <label>真实姓名</label>
+                <input type="text" id="chk_name" name="chk_name" placeholder="您的真实姓名">
+            </div>
+            <div class="input_tip">
+            <span>
+                <i class='i-def'></i>
+                请确保输入的信息为您的真实名字
+            </span>
+            </div>
+            <div class="form_item">
+                <label>身份证号</label>
+                <input type="text" id="chk_card" name="chk_card" placeholder="您的身份证号码">
+            </div>
+            <div class="input_tip">
+            <span id="error_card">
+                <i class='i-def'></i>请确保输入的身份证号是您本人的身份证号码
+            </span>
+            </div>
+            <div class="form_item">
+                <label>性 别</label>
+                <div class="choice">
+                    <div class="choice sex">
+                        <input type="radio" name="chk_sex" id="chk_sex1" value="男">
+                        <p class="sex_tag">男</p>
+                    </div>
+                    <div class="choice sex">
+                        <input type="radio" name="chk_sex" id="chk_sex2" value="女">
+                        <p class="sex_tag">女</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="input_tip" id="sex_tip">
+            <span>
+                <i class='i-def'></i>请选择您的性别
+            </span>
+            </div>
+
+            <div class="form_item">
+                <label>邮政编码</label>
+                <input type="text" id="form_post" name="form_post" placeholder="请输入您所在地的邮编">
+            </div>
+            <div class="input_tip">
+            <span>
+                <i class='i-def'></i>请确保您输入的邮编无误
+            </span>
+            </div>
+            <div class="form_item">
+                <label>收货地址</label>
+                <input type="" id="chk_address" name="chk_address" placeholder="请输入您的收货地址">
+            </div>
+            <div class="input_tip">
+            <span>
+                <i class='i-def'></i>请确保您输入的地址无误
+            </span>
+            </div>
+            <div class="form_button">
+                <input type="button" id="chk_button" value="身份验证"></input>
+            </div>
+            <div class="input_tip"></div>
+        </form>
+    </div>
+</div>
+<div id="chk_over" >
+    <div id="success_msg">
+        <b class="success_tag"></b>
+        <p class="mt" name="chk_welcome">恭喜您&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p class="mm">
+            您已成功验证用户信息，祝您购物愉快~
+        </p>
+    </div>
+    <div id="go_continue">
+        <button id="btn">
+            <a id="abtn" href="index.html" >回首页</a>
+        </button>
+
+    </div>
+</div>
+<div id="chk_foot">
+    <div id="links">
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 关于我们</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 联系我们</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 人才招聘</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 商家入驻</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 广告服务</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 手机京东</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 友情链接</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 销售联盟</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 京东社区</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 京东公益</a>|
+        <a target="_blank" href="//en.jd.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+    </div>
+    <div id="copyright">
+        Copyright©2004-2019 京东JD.com 版权所有
+    </div>
+</div>
+</body>
+</html>

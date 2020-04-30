@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/Register.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.validate.regex.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+<!--    <script src="js/check.js"></script>-->
+    <script src="js/vue.js"></script>
+    <script src="js/Register.js"></script>
+</head>
+<body>
+<div id="header">
+    <div id="header_inner">
+        <a id="reg_logo"></a>
+        <div class="reg_title">欢迎注册</div>
+        <div class="havecount">已有帐号？
+            <a href="login.html" class="tologin">请登录></a>
+        </div>
+    </div>
+</div>
+<div id="reg_main" >
+    <div id="process_bar">
+        <div class="step">
+            <span id="stepcount">1</span>
+            <p id="checktel">验证手机号</p>
+        </div>
+        <div class="line1"></div>
+        <div class="step two">
+            <span id="stepcount2">2</span>
+            <p id="accountinfo">填写账号信息</p>
+        </div>
+        <div class="line1 line2"></div>
+        <div class="step three">
+            <span id="stepcount3">3</span>
+            <p id="over">注册成功</p>
+        </div>
+    </div>
+    <div id="main_info">
+        <div id="reg_form">
+            <form action="" id="register_form" method="get">
+                <div id="first_form" >
+                    <div id="tel_input">
+                        <form>
+                            <select>
+                                <option>中国 0086</option>
+                                <option>中国香港 0086</option>
+                                <option>中国台湾 0086</option>
+                            </select>
+                            <div id="phone_div">
+                                <input id="phone" name="phone" type="text" placeholder="建议使用常用手机号">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="tel_button">
+                        <div id="checked">
+                            点击按钮进行验证
+                        </div>
+                    </div>
+                    <button type="button" id="tel_next">
+                        下一步
+                    </button>
+                </div>
+                <div id="second_form" >
+                    <form action="" id="register_form2" method="get">
+
+                        <div class="form_item">
+                            <label>用 户 名</label>
+                            <input type="text" id="reg_name" name="reg_name" placeholder="您的账户名和登录名">
+                        </div>
+                        <div class="input_tip">
+                        <span id="error_name">
+                        </span>
+                        </div>
+                        <div class="form_item">
+                            <label>设置密码</label>
+                            <input type="password" id="reg_pwd" name="reg_pwd" placeholder="建议使用两种或两种以上字符组合">
+                        </div>
+                        <div class="input_tip">
+                        <span>
+
+                        </span>
+                        </div>
+                        <div class="form_item">
+                            <label>确认密码</label>
+                            <input type="password" id="confirm_pwd" name="confirm_pwd" placeholder="请再次输入密码">
+                        </div>
+                        <div class="input_tip">
+                        <span>
+
+                        </span>
+                        </div>
+                        <div class="form_item">
+                            <label>输入邮箱</label>
+                            <input type="text" id="form_email" name="form_email" placeholder="请输入邮箱">
+                        </div>
+                        <div class="input_tip">
+                        <span id="error_email">
+
+                        </span>
+                        </div>
+
+                        <div class="form_button">
+                            <button type="button" id="reg_button">立即注册</button>
+                        </div>
+                        <div class="input_tip"></div>
+                    </form>
+                </div>
+            </form>
+        </div>
+        <div id="reg_other">
+            <a id="reg_ea">
+                <i class="reg-ohter-icon"></i>
+                企业用户注册
+            </a>
+            <a id="reg_haiwai">
+                <i class="reg-ohter-icon haiwai"></i>
+                海外用户注册
+            </a>
+        </div>
+    </div>
+</div>
+<div id="reg_over" >
+    <div id="success_msg">
+        <b class="success_tag"></b>
+        <p class="mt" name="welcomeMsg">恭喜您 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p class="mm">
+            您已成功注册为京东用户，祝您购物愉快~
+        </p>
+        <p class="mm mm_tip">
+            您还未进行身份认证，请点击下面按钮进行身份验证
+             或者
+            <a class="mm mm_tip" href="index.html">回首页</a>
+        </p>
+    </div>
+    <div id="go_continue">
+        <button id="btn">
+            <a id="abtn" href="checkinfo.html">进行实名认证</a>
+        </button>
+
+    </div>
+</div>
+<div id="reg_foot">
+    <div id="links">
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 关于我们</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 联系我们</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 人才招聘</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 商家入驻</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 广告服务</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 手机京东</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 友情链接</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 销售联盟</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 京东社区</a>|
+        <a rel="nofollow" target="_blank" href="//www.jd.com/intro/about.aspx"> 京东公益</a>|
+        <a target="_blank" href="//en.jd.com/" clstag="pageclick|keycount|20150112ABD|9">English Site</a>
+    </div>
+    <div id="copyright">
+        Copyright©2004-2019 京东JD.com 版权所有
+    </div>
+</div>
+</body>
+</html>
