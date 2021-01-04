@@ -1,8 +1,4 @@
 $(function () {
-    // $("#chk_name").focus(function () {
-    //     $(this).parent().next().children().empty();
-    // });
-    //用在按钮处来判断身份证是否重复
     var check_tag;
     //表单验证
     $("#info_form").validate({
@@ -13,7 +9,7 @@ $(function () {
             },
             chk_card: {
                 required: true,
-                regex: /^\w{18}$/
+                regex: /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
             },
             form_post: {
                 required: true,
@@ -30,7 +26,7 @@ $(function () {
             },
             chk_card: {
                 required: "身份证不能为空",
-                regex: "身份证号码长度为18位"
+                regex: "身份证号码格式不正确"
             },
             form_post: {
                 required: "邮政编码不能为空",
@@ -111,6 +107,5 @@ $(function () {
                 }
             })
         }
-
     });
 });

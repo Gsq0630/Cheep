@@ -24,7 +24,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAll(Key key) {
-        System.out.println("小慈："+key.getNewKeyWord());
         if (!(key.getLowPrice()>0 && key.getHighPrice()>0)){
             key.setLowPrice(0);
             key.setHighPrice(0);

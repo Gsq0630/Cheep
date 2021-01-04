@@ -37,9 +37,10 @@
 
 #s_logo_a {
     display: block;
-    background-image: url("../images/logo-1.png");
+    background-image: url("../images/jd-logo.jpg");
     background-repeat: no-repeat;
     height: 50px;
+    background-size: 80px;
 }
 
 #s_search_2019 {
@@ -518,11 +519,11 @@
     display: block;
     width: 100px;
     height: 100px;
-    background-image: url(../images/user_acatar.jpg);
+    background-image: url(../images/user_pic_1.png);
     background-size: 110%;
     position: relative;
-    top: -15px;
-    left: -27px;
+    top: -20px;
+    left: -29px;
 
 }
 

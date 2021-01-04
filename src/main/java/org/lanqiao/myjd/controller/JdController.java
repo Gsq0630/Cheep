@@ -35,9 +35,7 @@ public class JdController {
 
     @RequestMapping("/search/getPro")
     public List<Product> getAll(Key key){
-        System.out.println(key.getHighPrice());
-        List<Product> list=productService.getAll(key);
-        return list;
+        return productService.getAll(key);
     }
 
     @RequestMapping("/search/inputCart")

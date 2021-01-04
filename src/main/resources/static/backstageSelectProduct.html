@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/houtai.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+<div class="iframe" id="myView">
+    <ul class="breadcrumb">
+        <li><a href="后台管理.html">首页</a></li>
+        <li><a href="#">商品管理</a></li>
+        <li><a href="#">查询商品</a></li>
+    </ul>
+    <div class="text-center biao">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr class="tableHead">
+                <th>商品ID</th>
+                <th>商品名称</th>
+                <th>商品大类</th>
+                <th>商品小类</th>
+                <th>商品价格</th>
+                <th>商品订单</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(user,index) in usersList">
+                <td>1</td>
+                <td>嘉士利-早餐饼干</td>
+                <td>食品</td>
+                <td>饼干</td>
+                <td>23.9</td>
+                <td>3000</td>
+                <td><a href="#" class="btn btn-danger" style="padding: 0" >删除商品</a></td>
+            </tr>
+            <tr v-for="(user,index) in usersList">
+                <td>2</td>
+                <td>阿尔卑斯牛奶硬糖</td>
+                <td>食品</td>
+                <td>糖果</td>
+                <td>49.6</td>
+                <td>30</td>
+                <td><a href="#" class="btn btn-danger" style="padding: 0" >删除商品</a></td>
+            </tr>
+            <tr v-for="(user,index) in usersList">
+                <td>3</td>
+                <td>一加 OnePlus 7 Pro</td>
+                <td>数码</td>
+                <td>手机</td>
+                <td>4499</td>
+                <td>430</td>
+                <td><a href="#" class="btn btn-danger" style="padding: 0" >删除商品</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="input-group" style="width:180px;margin:0 auto;">
+        <span class="input-group-btn">
+            <input type="button" name="search" value="上一页" class="btn btn-default" />
+        </span>
+        <input type="text" class="form-control" style="text-align: center" v-model="currPage">
+        <span class="input-group-btn">
+            <input type="button" name="search" value="下一页" class="btn btn-default" />
+        </span>
+    </div>
+</div>
+
+</body>
+</html>

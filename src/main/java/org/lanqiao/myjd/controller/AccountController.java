@@ -36,7 +36,6 @@ public class AccountController {
 
     @RequestMapping("/register/insertAccount")
     public boolean insertAcc( Account account) {
-
         return accountService.insertAcc(account);
     }
     @RequestMapping("/register/selectAccId")
@@ -63,7 +62,6 @@ public class AccountController {
     //主页获取账户名称
     @RequestMapping("/login/getAccName")
     public String getAccName(String accId) {
-
         return accountService.getAccName(accId);
     }
 }

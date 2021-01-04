@@ -36,8 +36,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean insertAcc(Account account) {
-        return accountMapper.insertAcc(account)>0?true:false;
-
+        return accountMapper.insertAcc(account) > 0;
     }
 
     @Override
@@ -45,6 +44,7 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.selectAccIdByName(accName);
     }
 
+    @Override
     public Account checkAccount(String str, String password) {
         return accountMapper.selectByLogin(str, password);
     }

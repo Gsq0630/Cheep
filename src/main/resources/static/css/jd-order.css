@@ -134,9 +134,10 @@ strong {
 
 #logo_a {
     display: block;
-    background-image: url("../images/logo-1.png");
+    background-image: url("../images/jd-logo.jpg");
     background-repeat: no-repeat;
     height: 50px;
+    background-size: 90px;
 }
 
 #search_2019 {

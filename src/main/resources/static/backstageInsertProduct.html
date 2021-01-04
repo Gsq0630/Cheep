@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/houtai.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.validate.regex.js"></script>
+</head>
+<body>
+<div class="iframe">
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">商品管理</a></li>
+        <li><a href="#">添加商品</a></li>
+    </ul>
+    <div>
+        <form class="form-horizontal" role="form" id="form">
+            <div class="form-group">
+                <label for="usersid" class="col-sm-2 control-label">商品名字</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="usersid" name="usersid" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="realName" class="col-sm-2 control-label">所属大类</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="realName" name="realName" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cardid" class="col-sm-2 control-label">所属小类</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="cardid" name="cardid" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-sm-2 control-label">商品价格</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="address" name="address" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="postid" class="col-sm-2 control-label">商品描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="postid" name="postid" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="postid" class="col-sm-2 control-label">商品图片</label>
+                <div class="col-sm-10">
+                    <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

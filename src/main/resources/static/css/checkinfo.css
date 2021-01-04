@@ -16,11 +16,12 @@
 }
 
 #chk_logo {
-    width: 160px;
-    height: 50px;
+    width: 100px;
+    height: 70px;
     float: left;
     margin-top: 24px;
-    background-image: url("../images/register/icon.png");
+    background-image: url(../images/jd-logo.jpg);
+    background-size: 100px;
 }
 
 .chk_title {

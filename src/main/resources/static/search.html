@@ -15,10 +15,6 @@
                 location.href = "login.html";
             }
 
-
-
-
-
             var bigBox = new Vue({
                 el:"#bigBox",
                 data:{
@@ -109,7 +105,10 @@
                                     bigBox.bigClass.push({
                                         bclassId:data[i].bclassId,
                                         bclassName:data[i].bclassName
-                                    })
+                                    });
+                                    if (i == 4){
+                                        break;
+                                    }
                                 }
 
                             }
@@ -281,16 +280,16 @@
             <div class="dwei">
                 <ul>
                     <li><i class="iconfont"></i>
-                        福建
+                        山东
                     </li>
                     <li><i class="iconfont"></i>
-                        <a>京东首页</a>
+                        <a>首页</a>
                     </li>
                 </ul>
             </div>
             <div id="menu_div">
                 <ul class="menuul">
-                    <li class="menuli"><a>手机京东</a></li>
+                    <li class="menuli"><a>手机CHEAP</a></li>
                     <li class="spacer"></li>
                     <li class="menuli"><a>网站导航</a></li>
                     <li class="spacer"></li>
@@ -298,9 +297,7 @@
                     <li class="spacer"></li>
                     <li class="menuli"><a class="red">企业采购<i class="iconfont"></i></a></li>
                     <li class="spacer"></li>
-                    <li class="menuli"><a>京东会员</a></li>
-                    <li class="spacer"></li>
-                    <li class="menuli"><a>我的京东<i class="iconfont"></i></a></li>
+                    <li class="menuli"><a>我的CHEAP<i class="iconfont"></i></a></li>
                     <li class="spacer"></li>
                     <li class="menuli"><a>我的订单</a></li>
                     <li class="spacer"></li>
@@ -323,7 +320,7 @@
         </div>
         <div class="cw-icon">
             <a id="a-icon" href="Cart.html">我的购物车</a>
-            <i class="iconfont red"></i>
+<!--            <i class="iconfont red"></i>-->
             <i class="ci-count" id="shopping-amount">0</i>
         </div>
         <div id="menu_start">
@@ -341,7 +338,7 @@
         </div>
         <div id="nav-2019_ul">
             <ul>
-                <li class="dt_nav_li"><a>京东时尚</a></li>
+                <li class="dt_nav_li"><a>CHEAP时尚</a></li>
                 <li class="dt_nav_li"><a>美妆馆</a></li>
                 <li class="dt_nav_li"><a>超市</a></li>
                 <li class="dt_nav_li"><a>生鲜</a></li>
@@ -380,15 +377,7 @@
                                     <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
                                     <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
                                     <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
-                                    <li><a class="s1_logo_a"><img src="images/daier.jpg"></a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -518,20 +507,14 @@
                             <div class="f_s_1">配送至</div>
                             <div class="f_S_2">
                                 <div class="fs2_1">
-                                    <div class="fs2_text">福建福州市长乐区文武砂镇</div>
+                                    <div class="fs2_text">山东省青岛市</div>
                                     <div class="fs_2_san">▼</div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="j_feature">
-                            <ul>
-                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
-                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
-                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
-                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
-                                <li><a><i><input type="checkbox" name="r_check"></i>京东物流</a></li>
-                            </ul>
+
                         </div>
                         <div class="j_search">
                             <input type="text" value="在结果中搜索" class="input-txt"
@@ -552,11 +535,11 @@
                                         <em>{{res.proName}}&nbsp;<font class="skcolor_ljg">{{res.proWords}}</font></em>
                                     </div>
                                     <div class="r_comm">
-                                        <span style="color: #005aa0; font-weight: bold">6万+</span>条评价
+                                        <span style="color: #005aa0; font-weight: bold">{{res.proCount}}</span>条评价
                                     </div>
                                     <div class="r_shopName">
                                             <span class="r_sName_span">
-                                                <a><p>戴尔京东自营旗舰店 </p><b class="r_shop_kefu"></b></a>
+                                                <a><p>CHEAP自营旗舰店 </p><b class="r_shop_kefu"></b></a>
                                             </span>
                                     </div>
                                     <div class="r_icon">

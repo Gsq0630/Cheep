@@ -19,7 +19,7 @@
     //     $(".cart-box").css("display","none");
     // }
 </script>
-<body>
+<body style="padding-left: 140px">
 <div id="menu">
     <div id="menu_content">
         <ul id="m_left">
@@ -496,7 +496,6 @@
 
     $(function () {
 
-        //cookie
         var accId = $.cookie('accId');
         if(accId === undefined){
             location.href = "login.html";
@@ -557,7 +556,7 @@
         });
 
         //点击删除，从Cart中删除数据
-        var target = document.querySelector('.shop-list')
+        var target = document.querySelector('.shop-list');
         var eye2 = 0;
         // 设定监听回调函数
         var observer = new MutationObserver(function (mutations) {

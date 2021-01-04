@@ -31,8 +31,6 @@
     <if test="smallPageSize > 0 and smallPageNum >= 0">
     limit #{smallPageNum} , #{smallPageSize}
     </if>
-
-
   </select>
 
   <select id="selectByPrimaryKey" resultMap="SmallClassResultMap" parameterType="java.lang.Integer" >
